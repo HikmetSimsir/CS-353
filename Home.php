@@ -54,7 +54,7 @@ if ($count == 1) {
     // wrong username or password
     // go back to login page
     $_SESSION['login'] = -1;
-    header("Location: ./Index.php");
+    header("Location: ./Login.php");
     exit();
 }
 
