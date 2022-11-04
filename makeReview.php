@@ -45,12 +45,8 @@
 
     if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-
         $currentUserName = $_SESSION['uname'];
         $currentUserID = $_SESSION['user_id'];
-
-
 
         $bookReview = $_POST['bookReview'];
 

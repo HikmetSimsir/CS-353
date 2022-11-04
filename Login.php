@@ -19,6 +19,10 @@
         <button type="submit">Login</button>
     </div>
 
+    <div class= "container">
+        <a href="SignUp.php"> Not a member ? Sign Up    </a>
+    </div>
+
 </form>
 <h1>
     <?php
