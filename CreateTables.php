@@ -1,12 +1,12 @@
 <?php
-
+$configs = include('config.php');
 // connect database
-$conn = mysqli_connect("localhost", "root", "", "dbproject");
+$conn = mysqli_connect($configs["hostname"], $configs["username"], $configs["password"], $configs["database"]);
 // check connection
 if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+  die("Connection failed: " . mysqli_connect_error());
 } else {
-    echo "Connected successfully <br>";
+  echo "Connected successfully <br>";
 }
 $sql = "DROP TABLE IF EXISTS user_participate_event";
 mysqli_query($conn, $sql);
@@ -69,9 +69,9 @@ $sql = "CREATE TABLE user (
                  ) ENGINE=InnoDB;";
 
 if (mysqli_query($conn, $sql)) {
-    echo "Table user created successfully \n <br>";
+  echo "Table user created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // create sys admin table if not exist
@@ -84,9 +84,9 @@ $sql = "CREATE TABLE sys_admin (
                     on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table sys_admin created successfully \n <br>";
+  echo "Table sys_admin created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // create sys_author
@@ -100,9 +100,9 @@ $sql = "CREATE TABLE sys_author (
                         on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table sys_author created successfully \n <br>";
+  echo "Table sys_author created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 // crete publisher table
 $sql = "CREATE TABLE publisher (
@@ -114,9 +114,9 @@ $sql = "CREATE TABLE publisher (
                 PRIMARY KEY (p_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table publisher created successfully \n <br>";
+  echo "Table publisher created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 // book table
 $sql = "CREATE TABLE book (
@@ -130,9 +130,9 @@ $sql = "CREATE TABLE book (
                   on update cascade
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table book created successfully \n <br>";
+  echo "Table book created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // author table
@@ -144,9 +144,9 @@ $sql = "CREATE TABLE author (
                 PRIMARY KEY (author_id)
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table author created successfully \n <br>";
+  echo "Table author created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // book_author table
@@ -164,9 +164,9 @@ $sql = "CREATE TABLE book_author (
                             on UPDATE CASCADE
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table book_author created successfully \n <br>";
+  echo "Table book_author created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // genre table
@@ -176,9 +176,9 @@ $sql = "CREATE TABLE genre (
                 PRIMARY KEY (genre_id)
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table genre created successfully \n <br>";
+  echo "Table genre created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // book_genre table
@@ -194,9 +194,9 @@ $sql = "CREATE TABLE book_genre (
                         on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table book_genre created successfully \n <br>";
+  echo "Table book_genre created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // user_has_book table
@@ -213,9 +213,9 @@ $sql = "CREATE TABLE user_has_book (
                             on update cascade
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_has_book created successfully \n <br>";
+  echo "Table user_has_book created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // book_review
@@ -235,9 +235,9 @@ $sql = "CREATE TABLE book_review (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table book_review created successfully \n <br>";
+  echo "Table book_review created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // user vote review
@@ -255,9 +255,9 @@ $sql = "CREATE TABLE user_vote_review (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_vote_review created successfully \n <br>";
+  echo "Table user_vote_review created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // e-book
@@ -270,9 +270,9 @@ $sql = "CREATE TABLE e_book (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table e_book created successfully \n <br>";
+  echo "Table e_book created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // author publish ebook
@@ -289,9 +289,9 @@ $sql = "CREATE TABLE author_publish_ebook (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table author_publish_ebook created successfully \n <br>";
+  echo "Table author_publish_ebook created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 
@@ -307,9 +307,9 @@ $sql = "CREATE TABLE credit_card (
                 PRIMARY KEY (card_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table credit_card created successfully \n <br>";
+  echo "Table credit_card created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // user has credit card
@@ -325,9 +325,9 @@ $sql = "CREATE TABLE user_has_credit_card (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_has_credit_card created successfully \n <br>";
+  echo "Table user_has_credit_card created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // purchase
@@ -349,9 +349,9 @@ $sql = "CREATE TABLE purchase (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table purchase created successfully \n <br>";
+  echo "Table purchase created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // user follow user
@@ -367,9 +367,9 @@ $sql = "CREATE TABLE user_follow_user (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_follow_user created successfully \n <br>";
+  echo "Table user_follow_user created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // event table
@@ -386,9 +386,9 @@ $sql = "CREATE TABLE event (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table event created successfully \n <br>";
+  echo "Table event created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 // user participate event
@@ -404,8 +404,8 @@ $sql = "CREATE TABLE user_participate_event (
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_participate_event created successfully \n <br>";
+  echo "Table user_participate_event created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
