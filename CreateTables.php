@@ -239,6 +239,7 @@ $sql = "CREATE TABLE book_review (
                 text varchar(255),
                 date DATE,
                 rating INT,
+                KEY (review_id),
                 PRIMARY KEY (book_id, review_id),
                 FOREIGN KEY (book_id) REFERENCES book(book_id)
                             on delete cascade
@@ -443,13 +444,15 @@ if (mysqli_query($conn, $sql)) {
 // forum post
 
 $sql = "create table post(
-        forum_id int,
+        forum_id int NOT NULL ,
         post_id int AUTO_INCREMENT,
+        user_id int NOT NULL ,
         text varchar(255) not null,
         date Date not null,
         parent_id int,
-        primary key (forum_id, post_id),
-        foreign key (forum_id,parent_id) references post(forum_id, post_id) on delete cascade on update cascade ) ENGINE=InnoDB;";
+        primary key (post_id),
+        foreign key (parent_id) references post(post_id) on delete cascade on update cascade,
+        foreign key (user_id) references user(user_id) on delete cascade on update cascade ) ENGINE=InnoDB;";
 
 
 if (mysqli_query($conn, $sql)) {

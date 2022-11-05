@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
 </head>
+<body>
 <?php
 include_once "helper.php";
 session_start();
@@ -46,4 +47,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="SignUp.php">Not a member? Sign Up</a>
     </p>
 </form>
+</body>
 </html>

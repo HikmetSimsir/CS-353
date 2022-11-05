@@ -3,6 +3,13 @@
  * Uses light theme by default but switches to dark theme
  * if a system-wide theme preference is set on the user's device.
  */
+table > tr:nth-of-type(odd) {
+    background-color: lightblue;
+}
+
+table > tr:nth-of-type(even) {
+    background-color: lightseagreen;
+}
 
 :root {
     --background-body: #fff;
@@ -139,101 +146,89 @@ body {
 }
 
 button {
-    transition:
-            background-color 0.1s linear,
-            border-color 0.1s linear,
-            color 0.1s linear,
-            box-shadow 0.1s linear,
-            transform 0.1s ease;
-    transition:
-            background-color var(--animation-duration) linear,
-            border-color var(--animation-duration) linear,
-            color var(--animation-duration) linear,
-            box-shadow var(--animation-duration) linear,
-            transform var(--animation-duration) ease;
+    transition: background-color 0.1s linear,
+    border-color 0.1s linear,
+    color 0.1s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s ease;
+    transition: background-color var(--animation-duration) linear,
+    border-color var(--animation-duration) linear,
+    color var(--animation-duration) linear,
+    box-shadow var(--animation-duration) linear,
+    transform var(--animation-duration) ease;
 }
 
 @media (prefers-color-scheme: dark) {
 
     button {
-        transition:
-                background-color 0.1s linear,
-                border-color 0.1s linear,
-                color 0.1s linear,
-                box-shadow 0.1s linear,
-                transform 0.1s ease;
-        transition:
-                background-color var(--animation-duration) linear,
-                border-color var(--animation-duration) linear,
-                color var(--animation-duration) linear,
-                box-shadow var(--animation-duration) linear,
-                transform var(--animation-duration) ease;
+        transition: background-color 0.1s linear,
+        border-color 0.1s linear,
+        color 0.1s linear,
+        box-shadow 0.1s linear,
+        transform 0.1s ease;
+        transition: background-color var(--animation-duration) linear,
+        border-color var(--animation-duration) linear,
+        color var(--animation-duration) linear,
+        box-shadow var(--animation-duration) linear,
+        transform var(--animation-duration) ease;
     }
 }
 
 input {
-    transition:
-            background-color 0.1s linear,
-            border-color 0.1s linear,
-            color 0.1s linear,
-            box-shadow 0.1s linear,
-            transform 0.1s ease;
-    transition:
-            background-color var(--animation-duration) linear,
-            border-color var(--animation-duration) linear,
-            color var(--animation-duration) linear,
-            box-shadow var(--animation-duration) linear,
-            transform var(--animation-duration) ease;
+    transition: background-color 0.1s linear,
+    border-color 0.1s linear,
+    color 0.1s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s ease;
+    transition: background-color var(--animation-duration) linear,
+    border-color var(--animation-duration) linear,
+    color var(--animation-duration) linear,
+    box-shadow var(--animation-duration) linear,
+    transform var(--animation-duration) ease;
 }
 
 @media (prefers-color-scheme: dark) {
 
     input {
-        transition:
-                background-color 0.1s linear,
-                border-color 0.1s linear,
-                color 0.1s linear,
-                box-shadow 0.1s linear,
-                transform 0.1s ease;
-        transition:
-                background-color var(--animation-duration) linear,
-                border-color var(--animation-duration) linear,
-                color var(--animation-duration) linear,
-                box-shadow var(--animation-duration) linear,
-                transform var(--animation-duration) ease;
+        transition: background-color 0.1s linear,
+        border-color 0.1s linear,
+        color 0.1s linear,
+        box-shadow 0.1s linear,
+        transform 0.1s ease;
+        transition: background-color var(--animation-duration) linear,
+        border-color var(--animation-duration) linear,
+        color var(--animation-duration) linear,
+        box-shadow var(--animation-duration) linear,
+        transform var(--animation-duration) ease;
     }
 }
 
 textarea {
-    transition:
-            background-color 0.1s linear,
-            border-color 0.1s linear,
-            color 0.1s linear,
-            box-shadow 0.1s linear,
-            transform 0.1s ease;
-    transition:
-            background-color var(--animation-duration) linear,
-            border-color var(--animation-duration) linear,
-            color var(--animation-duration) linear,
-            box-shadow var(--animation-duration) linear,
-            transform var(--animation-duration) ease;
+    transition: background-color 0.1s linear,
+    border-color 0.1s linear,
+    color 0.1s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s ease;
+    transition: background-color var(--animation-duration) linear,
+    border-color var(--animation-duration) linear,
+    color var(--animation-duration) linear,
+    box-shadow var(--animation-duration) linear,
+    transform var(--animation-duration) ease;
 }
 
 @media (prefers-color-scheme: dark) {
 
     textarea {
-        transition:
-                background-color 0.1s linear,
-                border-color 0.1s linear,
-                color 0.1s linear,
-                box-shadow 0.1s linear,
-                transform 0.1s ease;
-        transition:
-                background-color var(--animation-duration) linear,
-                border-color var(--animation-duration) linear,
-                color var(--animation-duration) linear,
-                box-shadow var(--animation-duration) linear,
-                transform var(--animation-duration) ease;
+        transition: background-color 0.1s linear,
+        border-color 0.1s linear,
+        color 0.1s linear,
+        box-shadow 0.1s linear,
+        transform 0.1s ease;
+        transition: background-color var(--animation-duration) linear,
+        border-color var(--animation-duration) linear,
+        color var(--animation-duration) linear,
+        box-shadow var(--animation-duration) linear,
+        transform var(--animation-duration) ease;
     }
 }
 
@@ -1291,7 +1286,7 @@ table {
 }
 
 table caption {
-    text-align: left;
+    text-align: right;
 }
 
 td,
