@@ -1,68 +1,18 @@
-
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-        <a href="makeReviewPage.php">Make Review</a>
-
-
-    </div>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <?php
+include_once "helper.php";
 session_start();
-
-if (isset($_POST['uname']) && isset($_POST['psw'])) {
-    $email = $_POST['uname'];
-    $password = $_POST['psw'];
-
-    $_SESSION['uname'] = $email;
-    $_SESSION['psw'] = $password;
-} else if (isset($_SESSION['uname']) && isset($_SESSION['psw'])) {
-    $email = $_SESSION['uname'];
-    $password = $_SESSION['psw'];
-} else {
-    session_destroy();
-    header("Location: ./Login.php");
-    exit();
-}
+$conn = getDatabaseConnection();
+reqLogIn();
 ?>
-<?php
-try {
-    $conn = mysqli_connect("localhost", "root", "", "DBProject");
-} catch (Exception $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
-
-// check if username and password is correct in database
-$sql = "SELECT email, display_name FROM user WHERE email = '$email' AND password = '$password'";
-
-try {
-    $result = mysqli_query($conn, $sql);
-} catch (Exception $e) {
-    echo "Query failed: " . $e->getMessage();
-    exit();
-}
-
-$row = mysqli_fetch_assoc($result);
-$count = mysqli_num_rows($result);
-
-if ($count == 1) {
-    echo "<h3> Login successful <br> </h3>";
-    echo "<h3> Welcome " . $row['display_name'] . ". </h3>";
-
-} else {
-    // wrong username or password
-    // go back to login page
-    $_SESSION['login'] = -1;
-    header("Location: ./Login.php");
-    exit();
-}
-
-
-?>
-
+<p>
+    Welcome <?php echo $_SESSION["uname"] ?>
+</p>
 </html>
-<?php
