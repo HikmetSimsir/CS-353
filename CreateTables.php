@@ -74,14 +74,12 @@ $sql = "DROP TABLE IF EXISTS credit_card;";
 mysqli_query($conn, $sql);
 
 
-
-
 $sql = "CREATE TABLE user (
-                 email VARCHAR(30) UNIQUE,
-                 user_id INT NOT NULL,
-                 password VARCHAR(20),
+                 email varchar(255) UNIQUE,
+                 user_id INT NOT NULL AUTO_INCREMENT,
+                 password varchar(255),
                  PRIMARY KEY (user_id),
-                 display_name VARCHAR(20)
+                 display_name varchar(255)
                  ) ENGINE=InnoDB;";
 
 if (mysqli_query($conn, $sql)) {
@@ -93,7 +91,7 @@ if (mysqli_query($conn, $sql)) {
 // create sys admin table if not exist
 $sql = "CREATE TABLE sys_admin (
                 user_id INT NOT NULL,
-                phone_number VARCHAR(20),
+                phone_number varchar(255),
                 PRIMARY KEY (user_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                     on delete cascade
@@ -108,8 +106,8 @@ if (mysqli_query($conn, $sql)) {
 // create sys_author
 $sql = "CREATE TABLE sys_author (
                 user_id INT NOT NULL,
-                website_url VARCHAR(50),
-                author_info VARCHAR(100),
+                website_url varchar(255),
+                author_info varchar(255),
                 PRIMARY KEY (user_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                         on delete cascade
@@ -122,10 +120,10 @@ if (mysqli_query($conn, $sql)) {
 }
 // crete publisher table
 $sql = "CREATE TABLE publisher (
-                p_id INT NOT NULL,
-                p_name VARCHAR(20),
-                email VARCHAR(30),
-                website_url VARCHAR(50),
+                p_id INT NOT NULL AUTO_INCREMENT,
+                p_name varchar(255),
+                email varchar(255),
+                website_url varchar(255),
                 PRIMARY KEY (p_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -135,8 +133,8 @@ if (mysqli_query($conn, $sql)) {
 }
 // book table
 $sql = "CREATE TABLE book (
-                book_id INT NOT NULL,
-                title VARCHAR(50),
+                book_id INT NOT NULL AUTO_INCREMENT,
+                title varchar(255),
                 publisher_id INT,
                 publish_date DATE,
                 PRIMARY KEY (book_id),
@@ -152,10 +150,10 @@ if (mysqli_query($conn, $sql)) {
 
 // author table
 $sql = "CREATE TABLE author (
-                author_id INT NOT NULL,
-                name VARCHAR(20),
-                surname VARCHAR(20),
-                personal_info VARCHAR(100),
+                author_id INT NOT NULL AUTO_INCREMENT,
+                name varchar(255),
+                surname varchar(255),
+                personal_info varchar(255),
                 PRIMARY KEY (author_id)
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -186,8 +184,8 @@ if (mysqli_query($conn, $sql)) {
 
 // genre table
 $sql = "CREATE TABLE genre (
-                genre_id INT NOT NULL,
-                genre_info VARCHAR(100), 
+                genre_id INT NOT NULL AUTO_INCREMENT,
+                genre_info varchar(255), 
                 PRIMARY KEY (genre_id)
                  ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -236,9 +234,9 @@ if (mysqli_query($conn, $sql)) {
 // book_review
 $sql = "CREATE TABLE book_review (
                 book_id INT NOT NULL,
-                review_id INT NOT NULL,
+                review_id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
-                text VARCHAR(1000),
+                text varchar(255),
                 date DATE,
                 rating INT,
                 PRIMARY KEY (book_id, review_id),
@@ -312,9 +310,9 @@ if (mysqli_query($conn, $sql)) {
 
 // credit card table
 $sql = "CREATE TABLE credit_card (
-                card_id INT NOT NULL,
-                card_number VARCHAR(16),
-                name_on_card VARCHAR(50),
+                card_id INT NOT NULL AUTO_INCREMENT,
+                card_number varchar(255),
+                name_on_card varchar(255),
                 due_date_year INT,
                 due_date_month INT,
                 cvv INT,
@@ -347,7 +345,7 @@ if (mysqli_query($conn, $sql)) {
 
 // purchase
 $sql = "CREATE TABLE purchase (
-                purchase_id INT NOT NULL,
+                purchase_id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
                 book_id INT NOT NULL,
                 date DATE,
@@ -389,11 +387,11 @@ if (mysqli_query($conn, $sql)) {
 
 // event table
 $sql = "CREATE TABLE event (
-                event_id INT NOT NULL,
-                event_name VARCHAR(50),
+                event_id INT NOT NULL AUTO_INCREMENT,
+                event_name varchar(255),
                 start_date DATE,
                 end_date DATE,
-                location VARCHAR(50),
+                location varchar(255),
                 creator_id INT NOT NULL,
                 PRIMARY KEY (event_id),
                 FOREIGN KEY (creator_id) REFERENCES user(user_id)
@@ -425,22 +423,20 @@ if (mysqli_query($conn, $sql)) {
 }
 
 
-
-
 // book forum
 
 $sql = "create table book_forum(
   
-        forum_id int,
+        forum_id int AUTO_INCREMENT,
         title varchar(255) unique not null,
         user_id int not null,
         creationDate Date,
         primary key (forum_id),
         foreign key (user_id) references sys_admin(user_id) on delete cascade   on update cascade) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_participate_event created successfully \n <br>";
+  echo "Table user_participate_event created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 
@@ -448,7 +444,7 @@ if (mysqli_query($conn, $sql)) {
 
 $sql = "create table post(
         forum_id int,
-        post_id int ,
+        post_id int AUTO_INCREMENT,
         text varchar(255) not null,
         date Date not null,
         parent_id int,
@@ -457,9 +453,9 @@ $sql = "create table post(
 
 
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_participate_event created successfully \n <br>";
+  echo "Table user_participate_event created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
 
 
@@ -467,13 +463,13 @@ if (mysqli_query($conn, $sql)) {
 
 $sql = " create table system_report(
         user_id int not null,
-        report_id int,
+        report_id int not null AUTO_INCREMENT,
         comment varchar(255) not null,
         date Date not null,
         primary key (report_id),
         foreign key (user_id) references user(user_id) on delete cascade on update cascade) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
-    echo "Table user_participate_event created successfully \n <br>";
+  echo "Table user_participate_event created successfully \n <br>";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . mysqli_error($conn);
 }
