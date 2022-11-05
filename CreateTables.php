@@ -8,6 +8,20 @@ if (!$conn) {
 } else {
   echo "Connected successfully <br>";
 }
+
+
+//news
+
+
+$sql = "DROP TABLE IF EXISTS post;";
+mysqli_query($conn, $sql);
+$sql = "DROP TABLE IF EXISTS system_report;";
+mysqli_query($conn, $sql);
+
+$sql = "DROP TABLE IF EXISTS book_forum;";
+mysqli_query($conn, $sql);
+
+
 $sql = "DROP TABLE IF EXISTS user_participate_event";
 mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS event";
@@ -60,6 +74,8 @@ $sql = "DROP TABLE IF EXISTS credit_card;";
 mysqli_query($conn, $sql);
 
 
+
+
 $sql = "CREATE TABLE user (
                  email VARCHAR(30) UNIQUE,
                  user_id INT NOT NULL,
@@ -110,7 +126,6 @@ $sql = "CREATE TABLE publisher (
                 p_name VARCHAR(20),
                 email VARCHAR(30),
                 website_url VARCHAR(50),
-                publisher_name VARCHAR(30),
                 PRIMARY KEY (p_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -409,3 +424,56 @@ if (mysqli_query($conn, $sql)) {
   echo "Error creating table: " . mysqli_error($conn);
 }
 
+
+
+
+// book forum
+
+$sql = "create table book_forum(
+  
+        forum_id int,
+        title varchar(255) unique not null,
+        user_id int not null,
+        creationDate Date,
+        primary key (forum_id),
+        foreign key (user_id) references sys_admin(user_id) on delete cascade   on update cascade) ENGINE=InnoDB;";
+if (mysqli_query($conn, $sql)) {
+    echo "Table user_participate_event created successfully \n <br>";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
+
+// forum post
+
+$sql = "create table post(
+        forum_id int,
+        post_id int ,
+        text varchar(255) not null,
+        date Date not null,
+        parent_id int,
+        primary key (forum_id, post_id),
+        foreign key (forum_id,parent_id) references post(forum_id, post_id) on delete cascade on update cascade ) ENGINE=InnoDB;";
+
+
+if (mysqli_query($conn, $sql)) {
+    echo "Table user_participate_event created successfully \n <br>";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
+
+// system report table
+
+$sql = " create table system_report(
+        user_id int not null,
+        report_id int,
+        comment varchar(255) not null,
+        date Date not null,
+        primary key (report_id),
+        foreign key (user_id) references user(user_id) on delete cascade on update cascade) ENGINE=InnoDB;";
+if (mysqli_query($conn, $sql)) {
+    echo "Table user_participate_event created successfully \n <br>";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
