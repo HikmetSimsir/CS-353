@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // if $_SESSION['uname'] isset then user has succesfully logged in
       $_SESSION['uname'] = $email;
       $_SESSION['psw'] = $password;
+      header("location: /Home.php");
     } else {
       echo "<script type='text/javascript'>alert('Wrong username or password');</script>";
     }

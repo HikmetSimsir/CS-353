@@ -22,7 +22,6 @@ function connToSE(PDO $conn): Closure
 
 function reqLogIn()
 {
-  session_start();
   if (!isset($_SESSION['uname'])) {
     echo "Need to login";
     header("location: ./");
