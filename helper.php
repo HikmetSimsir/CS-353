@@ -2,7 +2,7 @@
 function getDatabaseConnection(): mysqli
 {
 
-  $configs = include('config.php');
+  $configs = include('configs.php');
 // connect database
   $conn = mysqli_connect($configs["hostname"], $configs["username"], $configs["password"], $configs["database"]);
 // check connection
