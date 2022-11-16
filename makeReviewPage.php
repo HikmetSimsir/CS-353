@@ -21,6 +21,8 @@
     </tr>
 
   <?php
+  session_start();
+
 
   $filter_title = $_GET["title"];
   $filter_author = $_GET["author"];
