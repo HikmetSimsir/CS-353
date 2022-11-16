@@ -65,7 +65,7 @@
   $conn = getDatabaseConnection();
   session_start();
   $sql = "
-select title, publisher.p_name, author.name, genre.genre_info
+select book.book_id, title, publisher.p_name, author.name, genre.genre_info
 from book,
      book_author,
      publisher,
@@ -98,7 +98,7 @@ where book.book_id = book_author.book_id
     <td>{$row['p_name']}</td>
     <td>{$row['name']}</td>
     <td>{$row['genre_info']}</td>
-    <td><a href='makeReview.php?bookID=$bookid userID=$currentUserID'>'Make Review to this Book'</a></td>
+    <td><a href='makeReview.php?bookID=$bookid&userID=$currentUserID'>'Make Review to this Book'</a></td>
 
    </tr>\n";
 

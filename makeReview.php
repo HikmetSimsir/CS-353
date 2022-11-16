@@ -17,8 +17,9 @@
 
     <div class="container" id='transferMoney'>
         <label for="fromAccount"><b>Your Review </b></label> <input type="text" placeholder="Enter review"
-                                                                    name="bookReview" required height=100 width=200>
-        <br>
+                                                                    name="bookReview" required> <label
+                for="bookRate"><b>Your Review </b></label> <input type="number" placeholder="5" name="bookRate" required
+                                                                  max="5" min="0"> <br>
         <button type="submit">Submit Review</button>
     </div>
 
@@ -31,12 +32,13 @@
 <table border="1" align="left">
 
     <td>Previous Reviews of this book</td>
+    <td>Rating</td>
+    <td>User</td>
 
 
   <?php
-
-
-  $conn = mysqli_connect("localhost", "root", "", "dbproject");
+  include_once "helper.php";
+  $conn = getDatabaseConnection();
   session_start();
 
   $currentBook = $_GET['bookID'];
@@ -48,25 +50,32 @@
     $currentUserID = $_SESSION['user_id'];
 
     $bookReview = $_POST['bookReview'];
+    $bookRate = $_POST['bookRate'];
+    $date = getdate();
 
 
     //get count of current number of reviews
     $numberOfReviewForThisBook = mysqli_num_rows($listPreviousReviewsQuery);
 
     // add this book review to the table
-    $addBookReviewQuery = mysqli_query($conn, "insert into book_review values('$currentBook',$numberOfReviewForThisBook+1,$currentUserID,'$bookReview',null,null);");
+    $addBookReviewQuery = mysqli_query($conn, "insert into book_review values('$currentBook',null,'$currentUserID','$bookReview',null,'$bookRate');");
 
   }
 
-  $listPreviousReviewsQuery = mysqli_query($conn, "Select text from book_review where book_id = '$currentBook'");
+  $listPreviousReviewsQuery = mysqli_query($conn, "Select text, rating, user.display_name from book_review, user where user.user_id = book_review.user_id and book_id = '$currentBook'");
 
 
   while ($row = mysqli_fetch_array($listPreviousReviewsQuery, MYSQLI_ASSOC)) {
 
     $currentReview = $row['text'];
+    $currentRate = $row['rating'];
+    $currentName = $row['display_name'];
     echo "<tr>
 
     <td>{$currentReview} </td>
+    <td>{$currentRate} </td>
+    <td>{$currentName} </td>
+
    </tr>\n";
 
   }
