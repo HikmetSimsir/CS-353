@@ -392,8 +392,10 @@ $sql = "CREATE TABLE event (
                 event_id INT NOT NULL AUTO_INCREMENT,
                 event_name varchar(255),
                 start_date DATE,
-                end_date DATE,
+                start_time TIME,
+                end_time TIME,
                 location varchar(255),
+                description varchar(255),
                 creator_id INT NOT NULL,
                 PRIMARY KEY (event_id),
                 FOREIGN KEY (creator_id) REFERENCES user(user_id)

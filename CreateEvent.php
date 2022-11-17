@@ -20,14 +20,21 @@
         <label for="startdate"><b>Start Date</b></label>
         <input type="date" placeholder="Enter Event Start Date" name="startdate" required>
 
-        <label for="enddate"><b>End Date</b></label>
-        <input type="date" placeholder="Enter Event End Date" name="enddate" required>
+<!--        start time-->
+        <label for="starttime"><b>Start Time</b></label>
+        <input type="time" placeholder="Enter Event Start Time" name="starttime" required>
+
+<!--  end time-->
+        <label for="endtime"><b>End Time</b></label>
+        <input type="time" placeholder="Enter Event End Time" name="endtime" required>
+<!--        description-->
+        <label for="description"><b>Description</b></label>
+        <input type="text" placeholder="Enter Event Description" name="description" required>
+
 
 <!--        location-->
         <label for="location"><b>Location</b></label>
         <input type="text" placeholder="Enter Event Location" name="location" required>
-
-
         <input type="submit" value="Submit" name="submit">
     </div>
 </form>
@@ -45,17 +52,19 @@ if(isset($_POST['submit'])) {
     // get data from form
     $event_name = $_POST['eventname'];
     $start_date = $_POST['startdate'];
-    $end_date = $_POST['enddate'];
+    $start_time = $_POST['starttime'];
+    $end_time = $_POST['endtime'];
     $location = $_POST['location'];
+    $description = $_POST['description'];
 
     // connect to database
     $conn = getDatabaseConnection();
     if($conn->connect_error){
         die('Connection Failed : '.$conn->connect_error);
     }else{
-        $stmt = $conn->prepare("insert into event(event_name, start_date, end_date, location, creator_id)
-        values(?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $event_name, $start_date, $end_date, $location, $user_id);
+        $stmt = $conn->prepare("insert into event(event_name, start_date, start_time, end_time, location, description, creator_id)
+        values(?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssi", $event_name, $start_date, $start_time, $end_time, $location, $description, $user_id);
         $stmt->execute();
         echo "Event created successfully...";
         $stmt->close();
