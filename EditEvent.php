@@ -21,7 +21,7 @@ $edit_event_id = $_SESSION['edit_event_id'];
 
 
 <?php
-echo "Edit Event ID: " . $edit_event_id . "<br>";
+//echo "Edit Event ID: " . $edit_event_id . "<br>";
 // display edit page for event
 $conn = getDatabaseConnection();
 $sql = "SELECT * FROM event WHERE event_id = " . $edit_event_id;
@@ -30,8 +30,10 @@ $row = $results->fetch_assoc();
 
 // display event data in table
 echo "Event Info: <br><table>";
-echo "<tr><th>Event Name</th><th>Start Date</th><th>End Date</th><th>Location</th></tr>";
-echo "<tr><td>" . $row['event_name'] . "</td><td>" . $row['start_date'] . "</td><td>" . $row['end_date'] . "</td><td>" . $row['location'] . "</td></tr>";
+echo "<tr><th>Event Name</th><th>Start Date</th><th>Start Time</th><th>End Time</th><th>Description</th></th><th>Location</th></tr>";
+
+echo "<tr><td>" . $row['event_name'] . "</td><td>" . $row['start_date'] . "</td><td>" . $row['start_time'] . "</td><td>" . $row['end_time'] . "</td><td>" . $row['description'] . "</td><td>" . $row['location'] . "</td></tr>";
+
 echo "</table>";
 
 
@@ -51,8 +53,16 @@ echo "</table>";
         <label for="startdate"><b>Start Date</b></label>
         <input type="date" placeholder="Enter Event Start Date" name="startdate" >
 
-        <label for="enddate"><b>End Date</b></label>
-        <input type="date" placeholder="Enter Event End Date" name="enddate" >
+        <label for="starttime"><b>Start Time</b></label>
+        <input type="time" placeholder="Enter Event Start Time" name="starttime" >
+
+<!--        end time-->
+        <label for="endtime"><b>End Time</b></label>
+        <input type="time" placeholder="Enter Event End Time" name="endtime" >
+
+        <label for="description"><b>Description</b></label>
+        <input type="text" placeholder="Enter Event Description" name="description" >
+
 
         <!--        location-->
         <label for="location"><b>Location</b></label>
@@ -87,10 +97,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $start_date = $row['start_date'];
         }
-        if (isset($_POST['enddate']) && !empty($_POST['enddate'])) {
-            $end_date = $_POST['enddate'];
+        if (isset($_POST['starttime']) && !empty($_POST['starttime'])) {
+            $start_time = $_POST['starttime'];
         } else {
-            $end_date = $row['end_date'];
+            $start_time = $row['start_time'];
+        }
+
+        if (isset($_POST['endtime']) && !empty($_POST['endtime'])) {
+            $end_time = $_POST['endtime'];
+        } else {
+            $end_time = $row['end_time'];
+        }
+
+        if (isset($_POST['description']) && !empty($_POST['description'])) {
+            $description = $_POST['description'];
+        } else {
+            $description = $row['description'];
         }
         if (isset($_POST['location']) && !empty($_POST['location'])) {
             $location = $_POST['location'];
@@ -103,8 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($conn->connect_error) {
             die('Connection Failed : ' . $conn->connect_error);
         } else {
-            $stmt = $conn->prepare("UPDATE event SET event_name = ?, start_date = ?, end_date = ?, location = ? WHERE event_id = ?");
-            $stmt->bind_param("ssssi", $event_name, $start_date, $end_date, $location, $edit_event_id);
+            $stmt = $conn->prepare("UPDATE event SET event_name = ?, start_date = ?, start_time = ?, end_time = ?, description = ?, location = ? WHERE event_id = ?");
+            $stmt->bind_param("ssssssi", $event_name, $start_date, $start_time, $end_time, $description, $location, $edit_event_id);
             $stmt->execute();
             echo "Event Updated Successfully";
             $stmt->close();

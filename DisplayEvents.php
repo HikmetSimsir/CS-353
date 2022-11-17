@@ -23,7 +23,7 @@ if($results->num_rows > 0){
     echo "<h2>Events</h2>";
     echo "Here are the events you can participate in. Click on the event name to participate.<br>";
     echo "If you are the creator of an event, you can edit  it by clicking on the Edit button.<br><br>";
-    echo "<table><tr><th>Event Name</th><th>Start Date</th><th>End Date</th><th>Location</th><th>Creator Name</th><th>Participate/Edit</th></tr>";
+    echo "<table><tr><th>Event Name</th><th>Start Date</th><th>Start Time</th><th>Location</th><th>Description</th><th>Creator Name</th><th>Participate/Edit</th></tr>";
     while($row = $results->fetch_assoc()){
 
 
@@ -33,7 +33,8 @@ if($results->num_rows > 0){
 //        echo "<p>End Date: " . $row['end_date'] . "</p>";
 //        echo "<p>Location: " . $row['location'] . "</p>";
 
-        echo "<tr><td>" . $row['event_name'] . "</td><td>" . $row['start_date'] . "</td><td>" . $row['end_date'] . "</td><td>" . $row['location'] . "</td><td>";
+        echo "<tr><td>" . $row['event_name'] . "</td><td>" . $row['start_date'] . "</td><td>" . $row['start_time'] . "</td><td>" .
+            $row['location'] . "</td><td>" . $row['description'] . "</td><td>";
 
         // check if the user is the owner of the event
 
@@ -88,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['participate_event_id'])) {
         $event_id = $_POST['participate_event_id'];
+        echo "participate event id: " . $event_id;
         $user_id = $userid;
 
         // connect to database
