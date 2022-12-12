@@ -474,7 +474,7 @@ $sql = " create table system_report(
         comment varchar(255) not null,
         date Date not null,
         primary key (report_id),
-        foreign key (user_id) references user(user_id) on delete cascade on update cascade) ENGINE=InnoDB;";
+        foreign key (user_id) references sys_admin(user_id) on delete cascade on update cascade) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
   echo "Table user_participate_event created successfully \n <br>";
 } else {
