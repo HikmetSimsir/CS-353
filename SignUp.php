@@ -39,6 +39,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userExists = false;
     $successfullSignup = true;
 
+    $sql = "SELECT user_id FROM user where email = '$username'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $userid = $row[0]["user_id"];
+
+    if (!is_null($_POST["Admin"])) {
+      $pno = $_POST["phonenumber"];
+      $AddAdmin = mysqli_query($conn, "Insert into sys_admin values('$userid','$pno');");
+
+    }
+
+    if (!is_null($_POST["Author"])) {
+      $wsite = $_POST["adminWSite"];
+      $ainfo = $_POST["ainfo"];
+
+      $AddAdmin = mysqli_query($conn, "Insert into sys_author values('$userid','$wsite','$ainfo');");
+    }
+
   } else {
     $userExists = true;
   }
@@ -58,6 +76,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p>
         <label for="dname">Display name</label><br> <input type="text" name="dname" id="dname" required>
     </p>
+    <p>
+        <label for="phonenumber">Phone number for Admin</label><br> <input type="tel" name="phonenumber"
+                                                                           id="phonenumber" maxlength="200" required>
+    </p>
+    <p>
+        <label for="adminWSite">Website for Author</label><br> <input type="url" name="adminWSite" id="adminWSite"
+                                                                      maxlength="200" required>
+    </p>
+    <p>
+        <label for="ainfo">Info for Author</label><br> <input type="text" name="ainfo" id="ainfo" maxlength="200"
+                                                              required>
+    </p>
+    <fieldset>
+        <legend>User Type</legend>
+        <div>
+            <input type="checkbox" id="Normal" name="Normal" value="Normal" disabled checked/> <label for="Normal">Normal</label>
+        </div>
+        <div>
+            <input type="checkbox" id="Author" name="Author" value="Author"/> <label for="Author">Author</label>
+        </div>
+        <div>
+            <input type="checkbox" id="Admin" name="Admin" value="Admin"/> <label for="Admin">Admin</label>
+        </div>
+    </fieldset>
     <p>
         <button>Sign up</button>
     </p>
