@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($count == 0) {
 
     $userid = $currentNumberOfUsers + 1;
-    $newUserInsertionQuery = mysqli_query($conn, "Insert into user values('$username',$userid,'$password','$dname');");
+    $newUserInsertionQuery = mysqli_query($conn, "Insert into user values('$username',null,'$password','$dname');");
     $userExists = false;
     $successfullSignup = true;
 

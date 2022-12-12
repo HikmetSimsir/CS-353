@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 
-<a href="./makeReviewPage.php">Make Review</a>
+<a href="./makeReviewPage.php?title=&author=&publisher=&genre=">Make Review  </a>
+<a href="./ListUsersPage.php?"> Follow Other Users</a>
+<a href = "./followedUsersPage.php?"> Followed Users   </a>
+
 <?php
 
 
