@@ -53,7 +53,7 @@ $sql = "DROP TABLE IF EXISTS sys_admin;";
 mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS sys_author;";
 mysqli_query($conn, $sql);
-$sql = "DROP TABLE IF EXISTS user_has_book";
+$sql = "DROP TABLE IF EXISTS user_has_book_lists";
 $result = mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS user;";
 mysqli_query($conn, $sql);
@@ -186,6 +186,7 @@ if (mysqli_query($conn, $sql)) {
 // genre table
 $sql = "CREATE TABLE genre (
                 genre_id INT NOT NULL AUTO_INCREMENT,
+                genre_name varchar(255),
                 genre_info varchar(255), 
                 PRIMARY KEY (genre_id)
                  ) ENGINE=InnoDB;";
@@ -214,10 +215,10 @@ if (mysqli_query($conn, $sql)) {
 }
 
 // user_has_book table
-$sql = "CREATE TABLE user_has_book (
+$sql = "CREATE TABLE user_has_book_lists (
                 user_id INT NOT NULL,
                 book_id INT NOT NULL,
-                reading_status ENUM('reading', 'read', 'want to read', 'not interested', 'favorite'),
+                book_list_name ENUM('reading', 'read', 'want to read', 'not interested', 'favorite'),
                 PRIMARY KEY (user_id, book_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                            on delete cascade
