@@ -17,6 +17,7 @@
         <td>Publisher Name</td>
         <td>Author Name</td>
         <td>Genre Info</td>
+        <td> Your Current Status  </td>
 
     </tr>
 
@@ -84,6 +85,9 @@ where book.book_id = book_author.book_id
 ";
   $listBooktoReviewQuery = mysqli_query($conn, $sql);
 
+
+
+
   while ($row = mysqli_fetch_array($listBooktoReviewQuery, MYSQLI_ASSOC)) {
 
     $bookid = $row['book_id'];
@@ -93,11 +97,21 @@ where book.book_id = book_author.book_id
     $currentUserID = $qres['user_id'];
     $_SESSION['user_id'] = $currentUserID;
 
+    $currentUserBookReadStatus = 'Not specified';
+
+      $userBookReadStatusQuery = mysqli_query($conn,"Select book_list_name from user_has_book_lists where user_id = '$currentUserID' and book_id='$bookid'; ");
+      $resq = mysqli_fetch_array($userBookReadStatusQuery, MYSQLI_ASSOC);
+
+      if($resq != null)
+          $currentUserBookReadStatus = $resq['book_list_name'];
+
     echo "<tr> 
     <td>{$row['title']}</td>
     <td>{$row['p_name']}</td>
     <td>{$row['name']}</td>
     <td>{$row['genre_info']}</td>
+    <td>{$currentUserBookReadStatus}</td>
+
     <td><a href='makeReview.php?bookID=$bookid&userID=$currentUserID'>'Make Review to this Book'</a></td>
 
    </tr>\n";

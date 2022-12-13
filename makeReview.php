@@ -29,19 +29,56 @@
 
 <br> <br> <br> <br>
 
+
 <table border="1" align="left">
 
-    <td>Previous Reviews of this book</td>
+    <td> Review</td>
     <td>Rating</td>
     <td>User</td>
+    <td>Your Vote Status</td>
+
+
+    Please specify your current reading status of this book
+    <br>
+        <?php
+
+        include_once "helper.php";
+        $conn = getDatabaseConnection();
+        session_start();
+
+        $currentBook = $_GET['bookID'];
+        $currentUserName = $_SESSION['uname'];
+        $currentUserID = $_GET['userID'];
+
+          echo "    
+                        <form method=\"post\" action=\"setUserBookStatus.php?status=0&bookID=$currentBook&userID=$currentUserID\"> 
+                        <input type='submit' class='button_submit' value='Currently Reading'></form>
+                        
+                        <form method=\"post\" action=\"setUserBookStatus.php?status=1&bookID=$currentBook&userID=$currentUserID\"> 
+                        <input type='submit' class='button_submit' value='Already Read'></form>
+                      
+                        <form method=\"post\" action=\"setUserBookStatus.php?status=2&bookID=$currentBook&userID=$currentUserID\"> 
+                        <input type='submit' class='button_submit' value='Want To Read'></form>
+                        
+                        <form method=\"post\" action=\"setUserBookStatus.php?status=3&bookID=$currentBook&userID=$currentUserID\"> 
+                        <input type='submit' class='button_submit' value='Not interested'></form>
+                        
+                        <form method=\"post\" action=\"setUserBookStatus.php?status=4&bookID=$currentBook&userID=$currentUserID\"> 
+                        <input type='submit' class='button_submit' value='Favorite'></form>
+                        
+
+                        "
+
+
+          ;
+          ?>
+
+    <h2> Previous Reviews Of This Book
+    </h2>
 
 
   <?php
-  include_once "helper.php";
-  $conn = getDatabaseConnection();
-  session_start();
 
-  $currentBook = $_GET['bookID'];
   $listPreviousReviewsQuery = mysqli_query($conn, "Select text from book_review where book_id = '$currentBook'");
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -62,7 +99,7 @@
 
   }
 
-  $listPreviousReviewsQuery = mysqli_query($conn, "Select text, rating, user.display_name from book_review, user where user.user_id = book_review.user_id and book_id = '$currentBook'");
+  $listPreviousReviewsQuery = mysqli_query($conn, "Select text, rating, user.display_name , review_id from book_review, user where user.user_id = book_review.user_id and book_id = '$currentBook'");
 
 
   while ($row = mysqli_fetch_array($listPreviousReviewsQuery, MYSQLI_ASSOC)) {
@@ -70,11 +107,29 @@
     $currentReview = $row['text'];
     $currentRate = $row['rating'];
     $currentName = $row['display_name'];
-    echo "<tr>
 
+    $curReviewID = $row['review_id'];
+    $currentVoteStatus = "Not voted";
+    $currentVoteStatusQuery = mysqli_query($conn, "Select vote from user_vote_review as uvr where  uvr.review_id = $curReviewID and uvr.user_id=$currentUserID and uvr.book_id =$currentBook" );
+    $currentVoteStatus =   mysqli_fetch_array($currentVoteStatusQuery,MYSQLI_ASSOC);
+
+    if ($currentVoteStatus != null ){
+        $currentVoteStatus = $currentVoteStatus['vote'];
+
+    }
+
+      echo "<tr>
+
+ 
     <td>{$currentReview} </td>
     <td>{$currentRate} </td>
     <td>{$currentName} </td>
+    <td> {$currentVoteStatus} </td>
+    <td> <form method=\"post\" action=\"setVoteStatus.php?status=up&bookID=$currentBook&userID=$currentUserID&reviewID=$curReviewID\"> 
+                        <input type='submit' class='button_submit' value='upvote'></form></td>
+    <td> <form method=\"post\" action=\"setVoteStatus.php?status=down&bookID=$currentBook&userID=$currentUserID&reviewID=$curReviewID\"> 
+                        <input type='submit' class='button_submit' value='downvote'></form></td>
+
 
    </tr>\n";
 
