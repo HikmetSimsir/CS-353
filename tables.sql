@@ -14,6 +14,58 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+drop view if exists sys_adm_user;
+
+drop view if exists sys_author_user;
+
+
+
+drop table if exists author_publish_ebook;
+
+drop table if exists book_author;
+
+drop table if exists author;
+
+drop table if exists book_forum;
+
+drop table if exists book_genre;
+
+drop table if exists e_book;
+
+drop table if exists genre;
+
+drop table if exists post;
+
+drop table if exists purchase;
+
+drop table if exists sys_author;
+
+drop table if exists system_report;
+
+drop table if exists sys_admin;
+
+drop table if exists user_follow_user;
+
+drop table if exists user_has_book_lists;
+
+drop table if exists user_has_credit_card;
+
+drop table if exists credit_card;
+
+drop table if exists user_participate_event;
+
+drop table if exists event;
+
+drop table if exists user_vote_review;
+
+drop table if exists book_review;
+
+drop table if exists book;
+
+drop table if exists publisher;
+
+drop table if exists user;
+
 
 --
 -- Table structure for table `author`
