@@ -56,10 +56,10 @@ function getBookInfo(int $book_id, mysqli $conn): array {
 
     // find publisher name from publisher id
     $publisher_id = $row2['publisher_id'];
-    $sql3 = "SELECT * FROM publisher WHERE p_id = $publisher_id";
+    $sql3 = "SELECT * FROM publisher WHERE publisher_id = $publisher_id";
     $result3 = $conn->query($sql3);
     $row3 = $result3->fetch_assoc();
-    $publisher_name = $row3['p_name'];
+    $publisher_name = $row3['publisher_name'];
 
     // find author name from table book_author
     $sql4 = "SELECT * FROM book_author WHERE book_id = $book_id";

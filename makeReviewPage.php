@@ -66,7 +66,7 @@
   $conn = getDatabaseConnection();
   session_start();
   $sql = "
-select book.book_id, title, publisher.p_name, author.name, genre.genre_info
+select book.book_id, title, publisher.publisher_name, author.name, genre.genre_info
 from book,
      book_author,
      publisher,
@@ -77,9 +77,9 @@ where book.book_id = book_author.book_id
   and book_author.author_id = author.author_id
   and book.book_id = book_genre.book_id
   and book_genre.genre_id = genre.genre_id
-  and book.publisher_id = publisher.p_id
+  and book.publisher_id = publisher.publisher_id
   and author.name like '%$filter_author%'
-  and publisher.p_name like '%$filter_publisher%'
+  and publisher.publisher_name like '%$filter_publisher%'
   and genre.genre_info like '%$filter_genre%'
   and book.title like '%$filter_title%'
 ";
@@ -107,7 +107,7 @@ where book.book_id = book_author.book_id
 
     echo "<tr> 
     <td>{$row['title']}</td>
-    <td>{$row['p_name']}</td>
+    <td>{$row['publisher_name']}</td>
     <td>{$row['name']}</td>
     <td>{$row['genre_info']}</td>
     <td>{$currentUserBookReadStatus}</td>
