@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['uname'];
   $password = $_POST['psw'];
   try {
-    $sql = "SELECT email, display_name FROM user WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
     $count = mysqli_num_rows($result);
@@ -23,6 +23,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // if $_SESSION['uname'] isset then user has succesfully logged in
       $_SESSION['uname'] = $email;
       $_SESSION['psw'] = $password;
+      $userid = intval($row["user_id"]);
+      $_SESSION['userid'] = $userid;
+
+      $sql = "SELECT * FROM sys_admin WHERE user_id = '$userid'";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_assoc($result);
+      $count = mysqli_num_rows($result);
+      if ($count == 1) {
+        $_SESSION['isAdmin'] = true;
+
+      } else {
+        $_SESSION['isAdmin'] = false;
+      }
+      $sql = "SELECT * FROM sys_author WHERE user_id = '$userid'";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_assoc($result);
+      $count = mysqli_num_rows($result);
+      if ($count == 1) {
+
+        $_SESSION['isAuthor'] = true;
+
+      } else {
+        $_SESSION['isAuthor'] = false;
+      }
       header("location: ./Home.php");
     } else {
       echo "<script type='text/javascript'>alert('Wrong username or password');</script>";
