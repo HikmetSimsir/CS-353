@@ -12,19 +12,19 @@ include_once "helper.php";
 session_start();
 $conn = getDatabaseConnection();
 reqLogIn();
-$forumid = $_GET["forumid"];
+reqAdmin();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $post = $_POST['post'];
   $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into post values('$forumid',null,'{$_SESSION["userid"]}','$post','$date',null);");
+  $addBookReviewQuery = mysqli_query($conn, "insert into book_forum values(null, '$post','{$_SESSION["userid"]}','$date');");
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {
     echo "<script type='text/javascript'>alert('" . "Something went wrong" . "');</script>";
 
   }
-  echo "<script type='text/javascript'>window.location = './forumView.php?forumid={$forumid}';</script>";
+  echo "<script type='text/javascript'>window.location = './forumList.php';</script>";
 }
 
 ?>
@@ -32,12 +32,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form action="" method="post">
 
     <p>
-        <label for="post">Your Post</label><br> <textarea name="post" id="post" cols="40" rows="6" required
-                                                          maxlength="240"></textarea>
+        <label for="post">Create Forum</label><br> <textarea name="post" id="post" cols="40" rows="6" required
+                                                             maxlength="240"></textarea>
     </p>
 
     <p>
-        <button>Post</button>
+        <button>Create</button>
     </p>
 
 </form>

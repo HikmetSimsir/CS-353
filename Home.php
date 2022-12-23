@@ -10,6 +10,11 @@
 <a href="./makeReviewPage.php?title=&author=&publisher=&genre=">Make Review  </a>
 <a href="./ListUsersPage.php?"> Follow Other Users</a>
 <a href = "./followedUsersPage.php?"> Followed Users   </a>
+<a href = "./forumList.php"> Forums   </a>
+<?php
+echo '<a href = "./forumCreate.php"> Create Forum</a>';
+?>
+
 
 <?php
 
