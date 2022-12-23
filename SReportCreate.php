@@ -47,6 +47,24 @@ SQL;
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
   }
+  // Use the query to create a report of the count of transitive followers the current user (admin creating the report)
+  // has
+  if ($type === 3) {
+    $sql=  <<<'SQL'
+WITH RECURSIVE follower_closure as (SELECT follower_id as dst
+                                    FROM user_follow_user
+                                    WHERE user_id = '{$_SESSION["userid"]}'
+                                    UNION
+                                    SELECT user_follow_user.follower_id
+                                    FROM user_follow_user
+
+                                             JOIN follower_closure ON follower_closure.dst = user_follow_user.user_id)
+select count(*) as c
+from follower_closure
+SQL;
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+  }
   $date = date("Y-m-d");
   $addBookReviewQuery = mysqli_query($conn, "insert into system_report values({$_SESSION["userid"]}, null,$content,'$date');");
   if ($addBookReviewQuery) {
@@ -72,6 +90,8 @@ SQL;
             <input type="radio" id="rtype1" name="rtype" value="1"/> <label for="rtype1">Highest Rated Books (Last 3
                                                                                          Months)</label> <input
                     type="radio" id="rtype2" name="rtype" value="2"/> <label for="rtype2">Most Followed Authors</label>
+            <input type="radio" id="rtype3" name="rtype" value="3"/> <label for="rtype3">Show off your
+                                                                                         reachability </label>
         </div>
 
     </fieldset>
