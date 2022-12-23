@@ -13,7 +13,7 @@ if (!$conn) {
 
 //news
 
-
+/*
 $sql = "DROP TABLE IF EXISTS post;";
 mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS system_report;";
@@ -71,9 +71,10 @@ mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS genre;";
 mysqli_query($conn, $sql);
 
+
 $sql = "DROP TABLE IF EXISTS credit_card;";
 mysqli_query($conn, $sql);
-
+*/
 
 $sql = "CREATE TABLE user (
                  email varchar(255) UNIQUE,
@@ -233,6 +234,7 @@ if (mysqli_query($conn, $sql)) {
   echo "Error creating table: " . mysqli_error($conn);
 }
 
+
 // book_review
 $sql = "CREATE TABLE book_review (
                 book_id INT NOT NULL,
@@ -314,7 +316,7 @@ if (mysqli_query($conn, $sql)) {
 // credit card table
 $sql = "CREATE TABLE credit_card (
                 card_id INT NOT NULL AUTO_INCREMENT,
-                card_number varchar(255),
+                card_number varchar(255) UNIQUE NOT NULL,
                 name_on_card varchar(255),
                 due_date_year INT,
                 due_date_month INT,
@@ -446,6 +448,7 @@ if (mysqli_query($conn, $sql)) {
 
 
 // forum post
+
 
 $sql = "create table post(
         forum_id int NOT NULL ,

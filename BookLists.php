@@ -97,6 +97,7 @@ foreach (list_types as $type) {
             echo "</form>";
 
 
+
             echo "</td></tr>";
         }
         echo "</table>";

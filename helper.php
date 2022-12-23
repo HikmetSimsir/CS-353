@@ -49,7 +49,7 @@ function vardumpln(object $str)
   print("\n");
 }
 
-function getBookInfo(int $book_id, PDO $conn): array {
+function getBookInfo(int $book_id, mysqli $conn): array {
     $sql2 = "SELECT * FROM book WHERE book_id = $book_id";
     $result2 = $conn->query($sql2);
     $row2 = $result2->fetch_assoc();
@@ -89,5 +89,6 @@ function getBookInfo(int $book_id, PDO $conn): array {
         $genre_name = "N/A";
     }
 
-    return array("author_name"=> $author_name, "genre_name"=> $genre_name, "publisher_name"=> $publisher_name);
+    return array("author_name"=> $author_name, "genre_name"=> $genre_name, "publisher_name"=> $publisher_name,
+        "book_title"=> $row2['title']);
 }
