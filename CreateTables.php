@@ -254,6 +254,7 @@ $sql = "CREATE TABLE book_review (
                             on delete cascade
                             on update cascade
                 ) ENGINE=InnoDB;";
+
 if (mysqli_query($conn, $sql)) {
   echo "Table book_review created successfully \n <br>";
 } else {
@@ -472,25 +473,108 @@ if (mysqli_query($conn, $sql)) {
 
 
 // system report table
-
 $sql = " create table system_report(
         user_id int not null,
-        report_id int not null AUTO_INCREMENT,
-        comment varchar(255) not null,
+        report_id int AUTO_INCREMENT,
+        content varchar(100000) not null,
         date Date not null,
         primary key (report_id),
-        foreign key (user_id) references sys_admin(user_id) on delete cascade on update cascade) ENGINE=InnoDB;";
+        foreign key (user_id) references sys_admin(user_id) on delete cascade on update cascade) ENGINE=InnoDB;" ;
+
+
 if (mysqli_query($conn, $sql)) {
   echo "Table user_participate_event created successfully \n <br>";
 } else {
   echo "Error creating table: " . mysqli_error($conn);
 }
 
+// create table to store total number of users, books, and events,book reviews, forum posts,
+$sql = "create table statistics(
+        total_users int,
+        total_books int,
+        total_events int,
+        total_book_reviews int,
+        total_forum_posts int,
+        total_forums int,
+        primary key (total_users)) ENGINE=InnoDB;";
 
 
-//set current date automatically when new book review is made
-$sql = "CREATE TRIGGER set_date BEFORE INSERT ON book_review FOR EACH ROW SET NEW.date = CURDATE();";
+if (mysqli_query($conn, $sql)) {
+    echo "Table user_participate_event created successfully \n <br>";
+    } else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
 
+//insert an initial value for the statistics table with value 0 for all columns
+$sql = "insert into statistics values(0,0,0,0,0);";
+if (mysqli_query($conn, $sql)) {
+    echo "Table user_participate_event created successfully \n <br>";
+    } else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
+
+// create trigger such that when a user is added  to the system, the number of users in the statistics table is incremented by 1
+$sql = "create trigger increment_users after insert on user for each row
+        update statistics set total_users = total_users + 1;";
+if (mysqli_query($conn, $sql)) {
+  echo "Trigger created successfully \n <br>";
+} else {
+  echo "Error creating trigger: " . mysqli_error($conn);
+}
+
+//create trigger such that when a book is added to the system, the number of books in the statistics table is incremented by 1
+
+$sql = "create trigger increment_books after insert on book for each row
+        update statistics set total_books = total_books + 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+
+}
+
+
+//create trigger such that when an event is added to the system, the number of events in the statistics table is incremented by 1
+$sql = "create trigger increment_events after insert on event for each row
+        update statistics set total_events = total_events + 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+
+
+}
+
+//create trigger such that when a book review is added to the system, the number of book reviews in the statistics table is incremented by 1
+$sql = "create trigger increment_book_reviews after insert on book_review for each row
+        update statistics set total_book_reviews = total_book_reviews + 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+}
+
+//create trigger such that when a forum post is added to the system, the number of forum posts in the statistics table is incremented by 1
+
+$sql = "create trigger increment_forum_posts after insert on post for each row
+        update statistics set total_forum_posts = total_forum_posts + 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+
+}
+
+// create a trigger such that when a forum is added to the system, the number of forums in the statistics table is incremented by 1
+$sql = "create trigger increment_forums after insert on book_forum for each row
+        update statistics set total_forums = total_forums + 1;";
+
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+}
 
 
 ?>

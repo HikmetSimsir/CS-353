@@ -11,16 +11,19 @@
 include_once "helper.php";
 session_start();
 $conn = getDatabaseConnection();
-reqLogIn();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+
+//reqLogIn();
 //create a nested array for the topic
 try {
   $repid = $_GET["repid"];
-  $sql = "SELECT * FROM sys_adm_user join system_report where report_id = '$repid'";
+  $sql = "SELECT * FROM sys_admin_user join system_report where report_id = '$repid'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  $dname = $row[0]["display_name"];
-  $title = $row[0]["report_id"] . "by user " . $dname;
-  $cdate = $row[0]["date"];
+  $title = $row[0]["report_id"];
   $content = $row[0]["comment"];
 
 
@@ -30,10 +33,8 @@ try {
 Title: {$title}
 </h1>
 <p><em>
-by: $dname
 </em></p>
 <p>
-date: $cdate
 </p>
 <p>
 <table>

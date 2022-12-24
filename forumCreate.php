@@ -14,6 +14,7 @@ include "NavBar.php";
 $isAuthor = $_SESSION['isAuthor'];
 $isAdmin = $_SESSION['isAdmin'];
 navBar($isAdmin, $isAuthor);
+
 $conn = getDatabaseConnection();
 //reqLogIn();
 //reqAdmin();

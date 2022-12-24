@@ -11,88 +11,151 @@
 include_once "helper.php";
 session_start();
 $conn = getDatabaseConnection();
+
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+
+/*
 reqLogIn();
-reqAdmin();
+reqAdmin();*/
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $type = intval($_POST['rtype']);
   $comment = $_POST['post'];
   $content = $comment . "\n";
-  if ($type === 1) {
-    <<<'SQL'
-select book_id, title, AVG(rating) as ar
+
+
+
+
+    $sql = "select book_id, title, AVG(rating) as ar
 from (select *
       from book_review
       where date > (select CURRENT_DATE - INTERVAL 3 MONTH)) as l3review
          natural join book
 group by book_id, title
 order by ar desc
-limit 10 
-SQL;
-    $sql = "SELECT phone_number FROM sys_adm_user WHERE email = '{$_SESSION["uname"]}'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-  }
-  if ($type === 2) {
-    <<<'SQL'
-select user_id, display_name, max(fc) as followers
+limit 5";
+
+
+$reportContent = " Books and Average Ratings of the last 3 months: <br>";
+$result = mysqli_query($conn, $sql);
+
+
+
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+    // concatenate report content with the book title and average rating
+    $reportContent .= "Title : " . $row["title"] . " Rating :  "  . $row["ar"] . "<br>";
+}
+
+  //  get user id in session
+  $user_id = $_SESSION['user_id'];
+
+
+// add newline to the report content
+$reportContent .= "\n";
+
+// add report content header of user with max followers and make a newline
+$reportContent .= "User with max followers: <br>  ";
+
+
+
+
+      $sql = "select user_id, display_name, max(fc) as followers
 from sys_author_user
          natural join
      (select user_id, COUNT(follower_id) as fc
       from user_follow_user
       group by user_id) as fcount
-group by user_id    
-SQL;
-    $sql = "SELECT phone_number FROM sys_adm_user WHERE email = '{$_SESSION["uname"]}'";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-  }
-  // Use the query to create a report of the count of transitive followers the current user (admin creating the report)
-  // has
-  if ($type === 3) {
-    $sql=  <<<'SQL'
-WITH RECURSIVE follower_closure as (SELECT follower_id as dst
-                                    FROM user_follow_user
-                                    WHERE user_id = '{$_SESSION["user_id"]}'
-                                    UNION
-                                    SELECT user_follow_user.follower_id
-                                    FROM user_follow_user
+group by user_id;";
 
-                                             JOIN follower_closure ON follower_closure.dst = user_follow_user.user_id)
-select count(*) as c
-from follower_closure
-SQL;
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-  }
-  $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into system_report values({$_SESSION["user_id"]}, null,$content,'$date');");
+
+$result = mysqli_query($conn, $sql);
+
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+  // concatenate report display name and followers
+    $reportContent .= "User : " . $row["display_name"] . "  Follower Number : " . $row["followers"] . "<br>";
+}
+
+//  get user id in session
+$user_id = $_SESSION['user_id'];
+
+
+// get current number of users,books,reviews and events in four variable
+$users = mysqli_query($conn, "select count(*) as users from user");
+$books = mysqli_query($conn, "select count(*) as books from book");
+$reviews = mysqli_query($conn, "select count(*) as reviews from book_review");
+$events = mysqli_query($conn, "select count(*) as events from event");
+//get current number of forums
+$forums = mysqli_query($conn, "select count(*) as forums from book_forum");
+
+// get all information in the statistics table and put them into variables
+$stats = mysqli_query($conn, "select * from statistics");
+$stat = mysqli_fetch_array($stats, MYSQLI_ASSOC);
+$usersStat = $stat['total_users'];
+$booksStat = $stat['total_books'];
+$reviewsStat = $stat['total_reviews'];
+$eventsStat = $stat['total_events'];
+$forumPostsStat = $stat['total_forum_posts'];
+$forumsStat = $stat['total_forums'];
+
+
+//concate these new stastistics variables to the report content and make a newline
+    //concatenate a new line in html format
+    $reportContent .= "<br>";
+$reportContent .= "Current Number of Users: " . $usersStat . "<br>";
+$reportContent .= "Current Number of Books: " . $booksStat . "<br>";
+$reportContent .= "Current Number of Reviews: " . $reviewsStat . "<br>";
+$reportContent .= "Current Number of Events: " . $eventsStat . "<br>";
+$reportContent .= "Current Number of Forums: " . $forumsStat . "<br>";
+$reportContent .= "Current Number of Forum Posts: " . $forumPostsStat . "<br>";
+
+
+
+
+
+
+
+// concatenate these new variables to the report content with suitable headers
+/*
+$reportContent .= " <br>";
+$reportContent .= "Number of Users: ";
+$reportContent .= mysqli_fetch_array($users, MYSQLI_ASSOC)["users"] . "<br>";
+$reportContent .= "Number of Books: ";
+$reportContent .= mysqli_fetch_array($books, MYSQLI_ASSOC)["books"] . "<br>";
+$reportContent .= "Number of Reviews: ";
+$reportContent .= mysqli_fetch_array($reviews, MYSQLI_ASSOC)["reviews"] . "<br>";
+$reportContent .= "Number of Events:";
+$reportContent .= mysqli_fetch_array($events, MYSQLI_ASSOC)["events"] . "<br>";
+$reportContent .= "Number of Forums:";
+$reportContent .= mysqli_fetch_array($forums, MYSQLI_ASSOC)["forums"] . "<br>";
+*/
+// update the report content in the database
+
+
+    $addBookReviewQuery = mysqli_query($conn, "insert into system_report values($user_id, null ,'$reportContent', NOW() );" );
+
+
+
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {
     echo "<script type='text/javascript'>alert('" . "Something went wrong" . "');</script>";
 
   }
-  echo "<script type='text/javascript'>window.location = './forumList.php';</script>";
+  echo "<script type='text/javascript'>window.location = './forumList.php?$row';</script>";
 }
 
 ?>
 
 <form method="post">
 
-    <p>
-        <label for="post">Create Forum</label><br> <textarea name="post" id="post" cols="40" rows="6" required
-                                                             maxlength="240"></textarea>
-    </p>
+
     <fieldset>
-        <legend>Report Type:</legend>
-        <div>
-            <input type="radio" id="rtype1" name="rtype" value="1"/> <label for="rtype1">Highest Rated Books (Last 3
-                                                                                         Months)</label> <input
-                    type="radio" id="rtype2" name="rtype" value="2"/> <label for="rtype2">Most Followed Authors</label>
-            <input type="radio" id="rtype3" name="rtype" value="3"/> <label for="rtype3">Show off your
-                                                                                         reachability </label>
-        </div>
+        <legend>Generate Report :</legend>
+
 
     </fieldset>
     <div>

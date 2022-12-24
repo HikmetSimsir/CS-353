@@ -18,10 +18,16 @@ function navBar($isAdmin, $isSysAuthor) {
     echo "<a href='CreateEvent.php'> Create Event  </a>";
     echo "<a href='CreditCard.php'> Credit Card  </a>";
     echo "<a href='PurchaseBook.php'> Purchase E-Book  </a>";
+    echo "<a href='SReportList.php'> System Report List  </a>";
+
+
 
     if ($isAdmin) {
         echo "<a href='ManageEBooks.php'>Manage EBooks  </a>";
         echo '<a href = "./forumCreate.php">Create Forum  </a>';
+
+        echo "<a href='SReportCreate.php'> System Report Create  </a>";
+
     }
     if ($isSysAuthor) {
         echo "<a href='Author_Publish_EBook.php'>Publish E-Book  </a>";

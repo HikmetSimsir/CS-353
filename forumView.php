@@ -15,6 +15,12 @@ $isAuthor = $_SESSION['isAuthor'];
 $isAdmin = $_SESSION['isAdmin'];
 navBar($isAdmin, $isAuthor);
 
+session_start();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+
 class ForumPost
 {
   public string $forum_id;

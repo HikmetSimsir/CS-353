@@ -10,12 +10,18 @@
 include_once "helper.php";
 session_start();
 $conn = getDatabaseConnection();
-reqLogIn();
-reqAdmin();
+
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+
+//reqLogIn();
+//reqAdmin();
 
 //create nested array for the topic
 try {
-$sql = "SELECT * FROM system_report natural JOIN sys_adm_user";
+$sql = "SELECT * FROM system_report natural JOIN sys_admin_user";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
 <body>
