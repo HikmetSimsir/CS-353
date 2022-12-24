@@ -21,8 +21,9 @@ $conn = getDatabaseConnection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $post = $_POST['post'];
-  $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into book_forum values(null, '$post','{$_SESSION["user_id"]}','$date');");
+//  $date = date("Y-m-d");
+  $addBookReviewQuery = mysqli_query($conn, "insert into book_forum(title, user_id, creationDate) values('$post','{$_SESSION["user_id"]}',NOW());");
+
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {

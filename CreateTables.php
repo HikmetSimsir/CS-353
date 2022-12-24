@@ -506,7 +506,7 @@ if (mysqli_query($conn, $sql)) {
 }
 
 //insert an initial value for the statistics table with value 0 for all columns
-$sql = "insert into statistics values(0,0,0,0,0);";
+$sql = "insert into statistics values(0,0,0,0,0,0);";
 if (mysqli_query($conn, $sql)) {
     echo "Table user_participate_event created successfully \n <br>";
     } else {
