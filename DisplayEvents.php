@@ -2,7 +2,7 @@
 session_start();
 include_once "helper.php";
 
-$userid = 1; // this will come from session array, once it is connected to rest of the pages
+//$userid = 1; // this will come from session array, once it is connected to rest of the pages
 ?>
 
 <!DOCTYPE html>
@@ -13,18 +13,27 @@ $userid = 1; // this will come from session array, once it is connected to rest 
 </head>
 
 <?php
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
+navBar($isAdmin, $isAuthor);
+$user_id = $_SESSION['user_id'];
+
+
+
+
 //display all events
 $conn = getDatabaseConnection();
 $sql = "SELECT * FROM event";
 
 $results = $conn->query($sql);
+echo "<h2>Events</h2>";
+echo "Here are the events you can participate in. Click on the event name to participate.<br>";
+echo "If you are the creator of an event, you can edit  it by clicking on the Edit button.<br><br>";
+echo "<table><tr><th>Event Name</th><th>Start Date</th><th>Start Time</th><th>Location</th><th>Description</th><th>Creator Name</th><th>Participate/Edit</th></tr>";
 
 if($results->num_rows > 0){
-    echo "<h2>Events</h2>";
-    echo "Here are the events you can participate in. Click on the event name to participate.<br>";
-    echo "If you are the creator of an event, you can edit  it by clicking on the Edit button.<br><br>";
-    echo "<table><tr><th>Event Name</th><th>Start Date</th><th>Start Time</th><th>Location</th><th>Description</th><th>Creator Name</th><th>Participate/Edit</th></tr>";
-    while($row = $results->fetch_assoc()){
+   while($row = $results->fetch_assoc()){
 
 
 //        echo "<div class='event'>";
@@ -47,7 +56,7 @@ if($results->num_rows > 0){
         echo "" . $row3['display_name'] . "</td><td>";
 
 
-        if($row['creator_id'] == $userid) {
+        if($row['creator_id'] == $user_id) {
             // put delete form
             echo "<form action='EditEvent.php' method='post'>";
             echo "<input type='hidden' name='edit_event_id' value='" . $row['event_id'] . "'>";
@@ -55,7 +64,7 @@ if($results->num_rows > 0){
             echo "</form>";
         } else {
             // check if user has already participated in event
-            $sql2 = "SELECT * FROM user_participate_event WHERE event_id = ".$row['event_id']." AND user_id = ".$userid;
+            $sql2 = "SELECT * FROM user_participate_event WHERE event_id = ".$row['event_id']." AND user_id = ".$user_id;
             $results2 = $conn->query($sql2);
 
             if ($results2->num_rows > 0) {
@@ -90,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['participate_event_id'])) {
         $event_id = $_POST['participate_event_id'];
         echo "participate event id: " . $event_id;
-        $user_id = $userid;
+        $user_id = $user_id;
 
         // connect to database
         $conn = getDatabaseConnection();
@@ -106,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else if (isset($_POST['participated_event_id'])) {
         $event_id = $_POST['participated_event_id'];
-        $user_id = $userid;
+        $user_id = $user_id;
 
         // connect to database
         $conn = getDatabaseConnection();

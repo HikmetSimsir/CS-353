@@ -24,7 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $_SESSION['uname'] = $email;
       $_SESSION['psw'] = $password;
       $userid = intval($row["user_id"]);
-      $_SESSION['userid'] = $userid;
+
+
+      $_SESSION['user_id'] = $userid;
 
       $sql = "SELECT * FROM sys_admin WHERE user_id = '$userid'";
       $result = mysqli_query($conn, $sql);

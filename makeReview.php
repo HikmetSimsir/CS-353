@@ -7,6 +7,13 @@
 </head>
 <body>
 
+<?php
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+?>
+
 
 <h2>Welcome to The Book Review Page</h2>
 
