@@ -54,8 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["Author"]) && !empty($_POST["Author"])) {
           $wsite = $_POST["adminWSite"];
           $ainfo = $_POST["ainfo"];
+        $fname = $_POST["fname"];
+        $lname = $_POST["lname"];
 
-        $sql = "INSERT INTO sys_author(user_id, website_url, author_info) VALUES ('$userid','$wsite','$ainfo')";
+        $sql = "INSERT INTO sys_author(user_id, website_url, author_info, first_name, last_name) VALUES ('$userid','$wsite','$ainfo', '$fname', '$lname')";
         $result = $conn->query($sql);
     }
 
@@ -78,6 +80,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <p>
         <label for="dname">Display name</label><br> <input type="text" name="dname" id="dname" required>
     </p>
+
+<!--    first name, last name-->
+    <p>
+        <label for="fname">First name</label><br> <input type="text" name="fname" id="fname" required>
+    </p>
+    <p>
+        <label for="lname">Last name</label><br> <input type="text" name="lname" id="lname" required>
+    </p>
+
+
+
     <p>
         <label for="phonenumber">Phone number for Admin</label><br> <input type="tel" name="phonenumber"
                                                                            id="phonenumber" maxlength="200"

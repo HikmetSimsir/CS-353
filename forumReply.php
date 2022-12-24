@@ -10,6 +10,10 @@
 <?php
 include_once "helper.php";
 session_start();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
 $conn = getDatabaseConnection();
 reqLogIn();
 $forumid = $_GET["forumid"];

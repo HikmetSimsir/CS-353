@@ -27,7 +27,7 @@ $conn = getDatabaseConnection();
 $sql = "SELECT * FROM ebooks_view";
 $result = $conn->query($sql);
 
-echo "<h2>Welcome to The Author's Page</h2>";
+echo "<h2>Welcome to The Admin's Page</h2>";
 echo "<h3>Here are all the e-books in the system:</h3>";
 // create table to display all the books
 echo "<table border='1' align='center'>

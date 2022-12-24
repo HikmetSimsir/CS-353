@@ -9,6 +9,7 @@
 <?php
 include_once "helper.php";
 session_start();
+
 $conn = getDatabaseConnection();
 reqLogIn();
 

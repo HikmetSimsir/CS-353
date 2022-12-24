@@ -12,6 +12,10 @@ include_once "helper.php";
 session_start();
 $conn = getDatabaseConnection();
 reqLogIn();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
 $forumid = $_GET["forumid"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

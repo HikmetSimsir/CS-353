@@ -8,6 +8,12 @@
 </head>
 <body>
 <?php
+session_start();
+
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
 
 class ForumPost
 {
@@ -101,7 +107,6 @@ class ForumPost
 
 
 include_once "helper.php";
-session_start();
 $conn = getDatabaseConnection();
 reqLogIn();
 //create a nested array for the topic

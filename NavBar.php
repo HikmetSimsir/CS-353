@@ -3,7 +3,7 @@
 function navBar($isAdmin, $isSysAuthor) {
     $user_id = $_SESSION['user_id'];
 
-    echo "<h1> Social Networking App </h1>";
+    echo "<h1> Social Networking for Readers App </h1>";
     echo "<div class='topnav'>";
 
 
