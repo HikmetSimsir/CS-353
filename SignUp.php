@@ -78,15 +78,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </p>
     <p>
         <label for="phonenumber">Phone number for Admin</label><br> <input type="tel" name="phonenumber"
-                                                                           id="phonenumber" maxlength="200" required>
+                                                                           id="phonenumber" maxlength="200"
+                                                                           value="444 4 44" required>
     </p>
     <p>
         <label for="adminWSite">Website for Author</label><br> <input type="url" name="adminWSite" id="adminWSite"
-                                                                      maxlength="200" required>
+                                                                      maxlength="200" value="https://demo-site.com"
+                                                                      required>
     </p>
     <p>
         <label for="ainfo">Info for Author</label><br> <input type="text" name="ainfo" id="ainfo" maxlength="200"
-                                                              required>
+                                                              value="A mystery." required>
     </p>
     <fieldset>
         <legend>User Type</legend>
