@@ -2,7 +2,7 @@
 include_once "helper.php";
 $conn = getDatabaseConnection();
 
-$sql = "drop view if exists sys_admin_user";
+$sql = "drop view if exists sys_adm_user";
 $conn->query($sql);
 $sql = "drop view if exists sys_author_user";
 $conn->query($sql);
@@ -16,7 +16,7 @@ $sql = "create view ebooks_view as
          WHERE author_publish_ebook.author_id = sys_author.user_id";
 $result = $conn->query($sql);
 
-$sql = "create view sys_admin_user as
+$sql = "create view sys_adm_user as
 select *
 from sys_admin natural join user;";
 $result = $conn->query($sql);
