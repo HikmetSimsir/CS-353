@@ -285,7 +285,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = "CREATE TABLE e_book (
                 book_id INT NOT NULL,
                 price INT,
-                content VARBINARY(1000000),
+                content BLOB(1000000),
                 PRIMARY KEY (book_id),
                 FOREIGN KEY (book_id) REFERENCES book(book_id)
                             on delete cascade
@@ -476,7 +476,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = " create table system_report(
         user_id int not null,
         report_id int AUTO_INCREMENT,
-        content varchar(100000) not null,
+        content text(100000) not null,
         date Date not null,
         primary key (report_id),
         foreign key (user_id) references sys_admin(user_id) on delete cascade on update cascade) ENGINE=InnoDB;" ;

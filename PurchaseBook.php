@@ -43,9 +43,9 @@ $filtered = false;
             <input type="text" placeholder="Enter Publisher" name="publisher" >
             <!--price range-->
             <label for="min_price"><b>Min Price</b></label>
-            <input type="number" min="0" max="1000000" name="min_price" >
+            <input type="number" min="1" max="1000000" name="min_price" >
             <label for="max_price"><b>Max Price</b></label>
-            <input type="number" min="0" max="1000000" name="max_price">
+            <input type="number" min="1" max="1000000" name="max_price">
 
 
             <input type="submit" value="Filter" name="filter">
