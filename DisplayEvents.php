@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['participate_event_id'])) {
         $event_id = $_POST['participate_event_id'];
-        echo "participate event id: " . $event_id;
+//        echo "participate event id: " . $event_id;
         $user_id = $user_id;
 
         // connect to database
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("insert into user_participate_event(event_id, user_id) values(?, ?)");
             $stmt->bind_param("ii", $event_id, $user_id);
             $stmt->execute();
-            echo "Participation Successful";
+//            echo "Participation Successful";
             $stmt->close();
             $conn->close();
         }
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("delete from user_participate_event where event_id = ? and user_id = ?");
             $stmt->bind_param("ii", $event_id, $user_id);
             $stmt->execute();
-            echo "Participation Removed";
+//            echo "Participation Removed";
             $stmt->close();
             $conn->close();
         }
