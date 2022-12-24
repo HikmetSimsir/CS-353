@@ -9,7 +9,19 @@
 <body>
 
 
+<?php
+
+session_start();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+?>
+
 <h2>Welcome to The Users Page , You can see all the users below</h2>
+
+
+
 
 <table border="1" align="center">
     <tr>
@@ -45,7 +57,6 @@
     echo $form;
     include_once "helper.php";
     $conn = getDatabaseConnection();
-    session_start();
 
     $currentUserName = $_SESSION['uname'];
     $userid_from_username_query = mysqli_query($conn, "Select user_id from user where email = '$currentUserName'");

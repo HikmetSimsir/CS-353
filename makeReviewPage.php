@@ -16,6 +16,18 @@ $isAdmin = $_SESSION['isAdmin'];
 navBar($isAdmin, $isAuthor);
 ?>
 
+<?php
+
+session_start();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+?>
+
+
+
+
 <h2>Welcome to The Book Review Page</h2>
 
 <table border="1" align="center">
@@ -29,10 +41,13 @@ navBar($isAdmin, $isAuthor);
     </tr>
 
   <?php
-    $filter_title = $_GET["title"];
-    $filter_author = $_GET["author"];
-    $filter_publisher = $_GET["publisher"];
-    $filter_genre = $_GET["genre"];
+
+
+  $filter_title = $_GET["title"];
+  $filter_author = $_GET["author"];
+  $filter_publisher = $_GET["publisher"];
+  $filter_genre = $_GET["genre"];
+
   if (is_null($filter_title)) {
     $filter_title = "";
   }
@@ -73,6 +88,7 @@ navBar($isAdmin, $isAuthor);
 
   include_once "helper.php";
   $conn = getDatabaseConnection();
+
   $sql = "
 select book.book_id, title, publisher.publisher_name, author.name, genre.genre_name
 from book,

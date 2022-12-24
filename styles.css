@@ -23,8 +23,12 @@ table > tr:nth-of-type(even) {
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
+    padding: 5px 5px;
+
     font-size: 17px;
 }
+
+
 
 /* Change the color of links on hover */
 .topnav a:hover {

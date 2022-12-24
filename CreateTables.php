@@ -485,3 +485,12 @@ if (mysqli_query($conn, $sql)) {
 } else {
   echo "Error creating table: " . mysqli_error($conn);
 }
+
+
+
+//set current date automatically when new book review is made
+$sql = "CREATE TRIGGER set_date BEFORE INSERT ON book_review FOR EACH ROW SET NEW.date = CURDATE();";
+
+
+
+?>
