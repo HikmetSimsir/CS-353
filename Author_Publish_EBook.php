@@ -17,7 +17,6 @@ $conn = getDatabaseConnection();
     <link rel="stylesheet" href="./styles.css">
 </head>
 
-
     <body>
         <h2>Welcome to The E-Book Publishing Page</h2>
         <!--create ebook form-->
