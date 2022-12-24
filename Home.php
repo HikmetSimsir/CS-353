@@ -119,6 +119,27 @@ while ($row = $result->fetch_assoc()) {
 }
 echo "</table>";
 
+// display books reviewed by the user
+echo "<h2>Books Reviewed by you</h2>";
+
+//display reviews made by user using book_review table
+$showMyReviewsQuery = "SELECT * FROM book_review, book where user_id = $user_id and book_review.book_id = book.book_id;";
+$result = mysqli_query($conn, $showMyReviewsQuery );
+
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+    //display contents of review
+    echo "<h2>Review of " . $row['title'] . "</h2>";
+    echo "<p>Rating: " . $row['rating'] . "</p>";
+    echo "<p>Review: " . $row['text'] . "</p>";
+    echo "<p>Review Date: " . $row['date'] . "</p>";
+}
+
+
+
+
+
+
 
 
 ?>
