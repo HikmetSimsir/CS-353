@@ -24,10 +24,7 @@ $conn = getDatabaseConnection();
 
 <?php
 // display all ebooks books of the system
-$sql = "SELECT * FROM (e_book
-    natural join author_publish_ebook natural join book
-    natural join book_genre natural join genre natural join publisher), sys_author
-         WHERE author_publish_ebook.author_id = sys_author.user_id";
+$sql = "SELECT * FROM ebooks_view";
 $result = $conn->query($sql);
 
 echo "<h2>Welcome to The Author's Page</h2>";

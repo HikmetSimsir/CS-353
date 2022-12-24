@@ -143,11 +143,9 @@ where book.book_id = book_author.book_id
 echo "<h2>Filtred E-Books</h2>";
 
 // find the e-books
-$sql = "SELECT * FROM (e_book
-    natural join author_publish_ebook natural join book
-    natural join book_genre natural join genre natural join publisher), sys_author
-         WHERE author_publish_ebook.author_id = sys_author.user_id and sys_author.first_name like '%$filter_author%'
-  and publisher.publisher_name like '%$filter_publisher%' and genre.genre_name like '%$filter_genre%' and book.title like '%$filter_title%'";
+$sql = "SELECT * FROM ebooks_view
+         WHERE first_name like '%$filter_author%'
+  and publisher_name like '%$filter_publisher%' and genre_name like '%$filter_genre%' and title like '%$filter_title%'";
 $result = $conn->query($sql);
 
 echo "<table border='1' align='center'>

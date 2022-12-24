@@ -127,7 +127,7 @@ $sql = "CREATE TABLE publisher (
                 publisher_id INT NOT NULL AUTO_INCREMENT,
                 publisher_name varchar(255),
                 email varchar(255),
-                website_url varchar(255),
+                publisher_website_url varchar(255),
                 PRIMARY KEY (publisher_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -243,7 +243,7 @@ $sql = "CREATE TABLE book_review (
                 review_id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
                 text varchar(255),
-                date DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                date DATE,
                 rating INT,
                 KEY (review_id),
                 PRIMARY KEY (book_id, review_id),

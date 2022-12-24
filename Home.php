@@ -34,7 +34,7 @@ $display_name = $row['display_name'];
 <?php
 if ($_SESSION["isAdmin"]) {
   echo "<p>Your admin tel no: ";
-  $sql = "SELECT phone_number FROM sys_admin natural join user WHERE email = '{$_SESSION["uname"]}'";
+  $sql = "SELECT phone_number FROM sys_adm_user WHERE email = '{$_SESSION["uname"]}'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   echo $row["phone_number"];
@@ -44,11 +44,11 @@ if ($_SESSION["isAdmin"]) {
 <?php
 if ($_SESSION["isAuthor"]) {
   echo "<p>Your author info: ";
-  $sql = "SELECT author_info FROM sys_author natural join user WHERE email = '{$_SESSION["uname"]}'";
+  $sql = "SELECT author_info FROM sys_author_user WHERE email = '{$_SESSION["uname"]}'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   echo $row["author_info"];
-  $sql = "SELECT website_url FROM sys_author natural join user WHERE email = '{$_SESSION["uname"]}'";
+  $sql = "SELECT website_url FROM sys_author_user WHERE email = '{$_SESSION["uname"]}'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   echo "<a href='{$row["website_url"]}'>Website</a>";
