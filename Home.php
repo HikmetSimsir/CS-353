@@ -27,7 +27,7 @@ reqLogIn();
 <?php
 if ($_SESSION["isAdmin"]) {
   echo "<p>Your admin tel no: ";
-  $sql = "SELECT phone_number FROM sys_adm natural join user WHERE email = '{$_SESSION["uname"]}'";
+  $sql = "SELECT phone_number FROM sys_admin natural join user WHERE email = '{$_SESSION["uname"]}'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_assoc($result);
   echo $row["phone_number"];
