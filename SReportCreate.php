@@ -150,7 +150,7 @@ $reportContent .= mysqli_fetch_array($forums, MYSQLI_ASSOC)["forums"] . "<br>";
     echo "<script type='text/javascript'>alert('" . "Something went wrong" . "');</script>";
 
   }
-  echo "<script type='text/javascript'>window.location = './forumList.php?$row';</script>";
+  echo "<script type='text/javascript'>window.location = './SReportList.php.php?$row';</script>";
 }
 
 ?>
