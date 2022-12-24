@@ -110,6 +110,8 @@ $sql = "CREATE TABLE sys_author (
                 user_id INT NOT NULL,
                 website_url varchar(255),
                 author_info varchar(255),
+                first_name varchar(255),
+                last_name varchar(255),
                 PRIMARY KEY (user_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                         on delete cascade
@@ -282,6 +284,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = "CREATE TABLE e_book (
                 book_id INT NOT NULL,
                 price INT,
+                content VARBINARY(1000000),
                 PRIMARY KEY (book_id),
                 FOREIGN KEY (book_id) REFERENCES book(book_id)
                             on delete cascade
@@ -300,9 +303,6 @@ $sql = "CREATE TABLE author_publish_ebook (
                 date DATE,
                 PRIMARY KEY (book_id, author_id),
                 FOREIGN KEY (book_id) REFERENCES e_book(book_id)
-                            on delete cascade
-                            on update cascade,
-                FOREIGN KEY (author_id) REFERENCES author(author_id)
                             on delete cascade
                             on update cascade
                 ) ENGINE=InnoDB;";
