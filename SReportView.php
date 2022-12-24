@@ -20,7 +20,7 @@ navBar($isAdmin, $isAuthor);
 //create a nested array for the topic
 try {
   $repid = $_GET["repid"];
-  $sql = "SELECT * FROM sys_admin_user join system_report where report_id = '$repid'";
+  $sql = "SELECT * FROM sys_adm_user join system_report where report_id = '$repid'";
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
   $title = $row[0]["report_id"];

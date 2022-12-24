@@ -21,7 +21,7 @@ navBar($isAdmin, $isAuthor);
 
 //create nested array for the topic
 try {
-$sql = "SELECT * FROM system_report natural JOIN sys_admin_user";
+$sql = "SELECT * FROM system_report natural JOIN sys_adm_user";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
 <body>
