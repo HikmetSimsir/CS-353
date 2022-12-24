@@ -44,17 +44,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
     $userid = $row[0]["user_id"];
 
-    if (!is_null($_POST["Admin"])) {
-      $pno = $_POST["phonenumber"];
-      $AddAdmin = mysqli_query($conn, "Insert into sys_admin values('$userid','$pno');");
+    if (isset($_POST["Admin"]) && !empty($_POST["Admin"])) {
+        $pno = $_POST["phonenumber"];
 
+        $sql = "INSERT INTO sys_admin(user_id, phone_number) VALUES ('$userid','$pno')";
+        $result = $conn->query($sql);
     }
 
-    if (!is_null($_POST["Author"])) {
-      $wsite = $_POST["adminWSite"];
-      $ainfo = $_POST["ainfo"];
+    if (isset($_POST["Author"]) && !empty($_POST["Author"])) {
+          $wsite = $_POST["adminWSite"];
+          $ainfo = $_POST["ainfo"];
 
-      $AddAdmin = mysqli_query($conn, "Insert into sys_author values('$userid','$wsite','$ainfo');");
+        $sql = "INSERT INTO sys_author(user_id, website_url, author_info) VALUES ('$userid','$wsite','$ainfo')";
+        $result = $conn->query($sql);
     }
 
   } else {
@@ -106,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button>Sign up</button>
     </p>
     <p>
-        <a href="/">Already a User? Log in</a>
+        <a href="index.php">Already a User? Log in</a>
     </p>
 </form>
 

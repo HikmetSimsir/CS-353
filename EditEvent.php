@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "helper.php";
-$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+//$user_id = 1; // this will come from session array, once it is connected to rest of the pages
 
 if (isset($_POST['edit_event_id'])) {
     $_SESSION['edit_event_id'] = $_POST['edit_event_id'];
@@ -21,12 +21,25 @@ $edit_event_id = $_SESSION['edit_event_id'];
 
 
 <?php
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
+navBar($isAdmin, $isAuthor);
 //echo "Edit Event ID: " . $edit_event_id . "<br>";
 // display edit page for event
 $conn = getDatabaseConnection();
 $sql = "SELECT * FROM event WHERE event_id = " . $edit_event_id;
 $results = $conn->query($sql);
 $row = $results->fetch_assoc();
+$user_id = $_SESSION['user_id'];
+
+
+// check if the event is found
+if ($results->num_rows == 0) {
+    exit("Event not found");
+}
+
+
 
 // display event data in table
 echo "Event Info: <br><table>";

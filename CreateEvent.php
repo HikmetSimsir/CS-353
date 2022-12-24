@@ -6,7 +6,17 @@
     <title>Create Event</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
+<?php
+    session_start();
 
+    $isAuthor = $_SESSION['isAuthor'];
+    $isAdmin = $_SESSION['isAdmin'];
+    include "NavBar.php";
+    navBar($isAdmin, $isAuthor);
+    include_once "helper.php";
+//    $user_id = 1; // this will come from session array, once it is connected to rest of the pages
+    $user_id = $_SESSION['user_id'];
+?>
 <!--create form HTML-->
 <form action="" method="post" >
     <div class="container">
@@ -17,7 +27,7 @@
         <label for="eventname"><b>Event Name</b></label>
         <input type="text" placeholder="Enter Event Name" name="eventname" required>
 
-        <label for="startdate"><b>Start Date</b></label>
+        <label for="startdate"><b>Event Date</b></label>
         <input type="date" placeholder="Enter Event Start Date" name="startdate" required>
 
 <!--        start time-->
@@ -41,13 +51,10 @@
 
 <?php
 
-session_start();
-include_once "helper.php";
-$user_id = 1; // this will come from session array, once it is connected to rest of the pages
 
 // get data from submit button
 if(isset($_POST['submit'])) {
-    echo "submit button was pressed";
+//    echo "submit button was pressed";
 
     // get data from form
     $event_name = $_POST['eventname'];
@@ -66,7 +73,10 @@ if(isset($_POST['submit'])) {
         values(?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssi", $event_name, $start_date, $start_time, $end_time, $location, $description, $user_id);
         $stmt->execute();
-        echo "Event created successfully...";
+
+        // script to state event was created
+        echo "<script type='text/javascript'>alert('Event Created!');</script>";
+
         $stmt->close();
         $conn->close();
     }
