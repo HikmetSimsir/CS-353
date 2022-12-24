@@ -2,7 +2,7 @@
 
 // navigation bar for each user type (admin, user, sysauthor)
 function navBar($isAdmin, $isSysAuthor) {
-    echo "<h1> Social Networking for Readers </h1>";
+    echo "<h1> Social Networking App </h1>";
 echo "<div class='topnav'>";
 
 
@@ -26,7 +26,5 @@ echo "<div class='topnav'>";
     }
     echo "<a href='Logout.php'>Logout</a>";
     echo "</div>";
-
-
 }
 ?>
