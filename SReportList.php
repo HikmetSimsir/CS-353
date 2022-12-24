@@ -40,7 +40,7 @@ $row = mysqli_fetch_all($result, MYSQLI_ASSOC); ?>
     $html = "
 <tr>
 <td>
-<a href='SReportView.php?repid=" . $item["report_id"] . "'" . ">" . $item["report_id"] . "by user " . $item["dname"] . "</a>
+<a href='SReportView.php?repid=" . $item["report_id"] . "'" . ">" . $item["report_id"] . "</a>
 </td>
 <td>" . $item["date"] . "</td>
 </tr>";
