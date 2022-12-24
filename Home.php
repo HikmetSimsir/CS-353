@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css">
 </head>
-v
 <?php
 session_start();
 $isAuthor = $_SESSION['isAuthor'];
@@ -89,6 +88,39 @@ while ($row = $result->fetch_assoc()) {
     echo "</tr>";
 }
 echo "</table>";
+
+
+$sql = "WITH RECURSIVE follower_closure as (SELECT follower_id as dst
+                                    FROM user_follow_user
+                                    WHERE user_id = $user_id
+                                    UNION
+                                    SELECT user_follow_user.follower_id
+                                    FROM user_follow_user
+                                             JOIN follower_closure ON follower_closure.dst = user_follow_user.user_id)
+SELECT *
+FROM follower_closure";
+
+$result = $conn->query($sql);
+
+// create table to display all the friends
+echo "<h2>Your Follower Network</h2>";
+echo "<table border='1' align='center'>
+<tr>
+<th>Follower Display Name</th>
+</tr>";
+
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    $sql = "SELECT display_name FROM user WHERE user_id = '{$row['dst']}'";
+    $result2 = mysqli_query($conn, $sql);
+    $row2 = mysqli_fetch_assoc($result2);
+    echo "<td>" . $row2['display_name'] . "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+
+
+
 ?>
 
 </html>
