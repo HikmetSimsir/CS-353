@@ -225,7 +225,7 @@ if (!$filtered) {
 } else {
     $sql = "SELECT * FROM e_book WHERE book_id = -1";
 }
-echo $sql;
+//echo $sql;
 $result = $conn->query($sql);
 
 echo "<h1>Ebooks Not Purchased by You</h1>";
