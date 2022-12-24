@@ -24,7 +24,7 @@ try {
   $result = mysqli_query($conn, $sql);
   $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
   $title = $row[0]["report_id"];
-  $content = $row[0]["comment"];
+  $content = $row[0]["content"];
 
 
   // language=HTML

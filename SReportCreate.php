@@ -59,9 +59,6 @@ $reportContent .= "\n";
 // add report content header of user with max followers and make a newline
 $reportContent .= "User with max followers: <br>  ";
 
-
-
-
       $sql = "select user_id, display_name, max(fc) as followers
 from sys_author_user
          natural join
@@ -101,6 +98,14 @@ $eventsStat = $stat['total_events'];
 $forumPostsStat = $stat['total_forum_posts'];
 $forumsStat = $stat['total_forums'];
 
+//print usersStat
+echo $reportContent;
+    echo $reportContent;
+    echo $reportContent;
+    echo $reportContent;
+    echo $reportContent;
+    echo $reportContent;
+    echo $reportContent;
 
 //concate these new stastistics variables to the report content and make a newline
     //concatenate a new line in html format
