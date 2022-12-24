@@ -40,7 +40,7 @@ $text = $row[0]["text"];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $post = $_POST['post'];
   $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into post values('$forumid',null,'{$_SESSION["userid"]}','$post','$date','$postid');");
+  $addBookReviewQuery = mysqli_query($conn, "insert into post values('$forumid',null,'{$_SESSION["user_id"]}','$post','$date','$postid');");
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {

@@ -53,7 +53,7 @@ SQL;
     $sql=  <<<'SQL'
 WITH RECURSIVE follower_closure as (SELECT follower_id as dst
                                     FROM user_follow_user
-                                    WHERE user_id = '{$_SESSION["userid"]}'
+                                    WHERE user_id = '{$_SESSION["user_id"]}'
                                     UNION
                                     SELECT user_follow_user.follower_id
                                     FROM user_follow_user
@@ -66,7 +66,7 @@ SQL;
     $row = mysqli_fetch_assoc($result);
   }
   $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into system_report values({$_SESSION["userid"]}, null,$content,'$date');");
+  $addBookReviewQuery = mysqli_query($conn, "insert into system_report values({$_SESSION["user_id"]}, null,$content,'$date');");
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {

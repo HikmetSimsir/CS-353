@@ -17,7 +17,7 @@ reqAdmin();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $post = $_POST['post'];
   $date = date("Y-m-d");
-  $addBookReviewQuery = mysqli_query($conn, "insert into book_forum values(null, '$post','{$_SESSION["userid"]}','$date');");
+  $addBookReviewQuery = mysqli_query($conn, "insert into book_forum values(null, '$post','{$_SESSION["user_id"]}','$date');");
   if ($addBookReviewQuery) {
     echo "<script type='text/javascript'>alert('" . "Success" . "');</script>";
   } else {
