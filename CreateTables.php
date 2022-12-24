@@ -13,7 +13,7 @@ if (!$conn) {
 
 //news
 
-/*
+
 $sql = "DROP TABLE IF EXISTS post;";
 mysqli_query($conn, $sql);
 $sql = "DROP TABLE IF EXISTS system_report;";
@@ -74,7 +74,7 @@ mysqli_query($conn, $sql);
 
 $sql = "DROP TABLE IF EXISTS credit_card;";
 mysqli_query($conn, $sql);
-*/
+
 
 $sql = "CREATE TABLE user (
                  email varchar(255) UNIQUE,
@@ -110,6 +110,8 @@ $sql = "CREATE TABLE sys_author (
                 user_id INT NOT NULL,
                 website_url varchar(255),
                 author_info varchar(255),
+                first_name varchar(255),
+                last_name varchar(255),
                 PRIMARY KEY (user_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                         on delete cascade
@@ -122,11 +124,11 @@ if (mysqli_query($conn, $sql)) {
 }
 // crete publisher table
 $sql = "CREATE TABLE publisher (
-                p_id INT NOT NULL AUTO_INCREMENT,
-                p_name varchar(255),
+                publisher_id INT NOT NULL AUTO_INCREMENT,
+                publisher_name varchar(255),
                 email varchar(255),
                 website_url varchar(255),
-                PRIMARY KEY (p_id)
+                PRIMARY KEY (publisher_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
   echo "Table publisher created successfully \n <br>";
@@ -140,7 +142,7 @@ $sql = "CREATE TABLE book (
                 publisher_id INT,
                 publish_date DATE,
                 PRIMARY KEY (book_id),
-                FOREIGN KEY (publisher_id) REFERENCES publisher(p_id)
+                FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id)
                   on delete set null
                   on update cascade
                  ) ENGINE=InnoDB;";
@@ -282,6 +284,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = "CREATE TABLE e_book (
                 book_id INT NOT NULL,
                 price INT,
+                content VARBINARY(1000000),
                 PRIMARY KEY (book_id),
                 FOREIGN KEY (book_id) REFERENCES book(book_id)
                             on delete cascade
@@ -301,9 +304,6 @@ $sql = "CREATE TABLE author_publish_ebook (
                 PRIMARY KEY (book_id, author_id),
                 FOREIGN KEY (book_id) REFERENCES e_book(book_id)
                             on delete cascade
-                            on update cascade,
-                FOREIGN KEY (author_id) REFERENCES author(author_id)
-                            on delete cascade
                             on update cascade
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -322,6 +322,7 @@ $sql = "CREATE TABLE credit_card (
                 due_date_month INT,
                 cvv INT,
                 card_type ENUM('visa', 'mastercard', 'american express'),
+                balance INT,
                 PRIMARY KEY (card_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
@@ -364,7 +365,8 @@ $sql = "CREATE TABLE purchase (
                             on update cascade,
                 FOREIGN KEY (card_id) REFERENCES credit_card(card_id)
                             on delete cascade
-                            on update cascade
+                            on update cascade,
+                UNIQUE (user_id, book_id)
                 ) ENGINE=InnoDB;";
 if (mysqli_query($conn, $sql)) {
   echo "Table purchase created successfully \n <br>";
