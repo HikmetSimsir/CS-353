@@ -1,8 +1,14 @@
 <?php
 session_start();
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
 include "helper.php";
-$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+$default_balance = 99999;
 
+navBar($isAdmin, $isAuthor);
+//$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+$user_id = $_SESSION['user_id'];
 ?>
 
     <!DOCTYPE html>
@@ -32,9 +38,10 @@ if ($result->num_rows > 0) {
         $row2 = $result2->fetch_assoc();
 
         // display credit card info
-        echo "<table> <tr><th>Card Number</th><th>Card Type</th><th>Name on Card</th><th>Card Expiry Date</th><th>Remove</th></tr>";
+        echo "<table> <tr><th>Card Number</th><th>Card Type</th><th>Name on Card</th><th>Card Expiry Date</th><th> Balance </th>><th>Remove</th></tr>";
         echo " <tr><td>" . $row2['card_number'] . "</td>" . "<td>" . $row2['card_type'] . "</td><td>" .
-            $row2['name_on_card'] . "</td><td>" . $row2['due_date_month'] . "/" . $row2['due_date_year'] . "</td><td>";
+            $row2['name_on_card'] . "</td><td>" . $row2['due_date_month'] . "/" . $row2['due_date_year'] . "</td><td>"
+        . $row2['balance']. "</td><td>";
 
         echo "<form method='post'>";
         echo "<input type='hidden' name='card_id' value='" . $card_id . "'>";
@@ -139,8 +146,8 @@ if (isset($_POST['submit'])) {
 
         } else {
 
-            $sql = "INSERT INTO credit_card (card_number, card_type, name_on_card, due_date_month, due_date_year, cvv) 
-            VALUES ('$card_number', '$card_type', '$name_on_card', '$due_date_month', '$due_date_year', '$cvv')";
+            $sql = "INSERT INTO credit_card (card_number, card_type, name_on_card, due_date_month, due_date_year, cvv, balance) 
+            VALUES ('$card_number', '$card_type', '$name_on_card', '$due_date_month', '$due_date_year', '$cvv', '$default_balance')";
             $result = $conn->query($sql);
 
             if ($result === TRUE) {

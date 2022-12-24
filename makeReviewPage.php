@@ -162,6 +162,8 @@ echo "<table border='1' align='center'>
 
 while ($row = $result->fetch_assoc()) {
     $bookid = $row['book_id'];
+    $author_id = $row['author_id'];
+//    echo "author id is " . $author_id;
     $currentUserName = $_SESSION['uname'];
     $userid_from_username_query = mysqli_query($conn, "Select user_id from user where email = '$currentUserName'");
     $qres = mysqli_fetch_array($userid_from_username_query, MYSQLI_ASSOC);
@@ -179,7 +181,9 @@ while ($row = $result->fetch_assoc()) {
     echo "<tr> 
     <td>{$row['title']}</td>
     <td>{$row['publisher_name']}</td>
-    <td><a href='AuthorsPage.php'>{$row['first_name']} </a></td>
+    <td>
+    <a href='AuthorsPage.php?author_id=$author_id'>{$row['first_name']}</a>
+    </td>
     <td>{$row['genre_name']}</td>
     <td>{$row['price']}</td>
     <td>{$currentUserBookReadStatus}</td>

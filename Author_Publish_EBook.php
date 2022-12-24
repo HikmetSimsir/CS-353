@@ -1,8 +1,13 @@
 <?php
 session_start();
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
 include "helper.php";
-$user_id = 1; // this will come from session array, once it is connected to rest of the pages
 
+navBar($isAdmin, $isAuthor);
+//$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+$user_id = $_SESSION['user_id'];
 $conn = getDatabaseConnection();
 
 ?>
@@ -22,7 +27,7 @@ $conn = getDatabaseConnection();
         <!--create ebook form-->
         <form action="" method="post" enctype="multipart/form-data">
             <div class="container">
-                <h1>Publish E-Book</h1>
+                <h2>Publish E-Book</h2>
                 <p>Please fill in this form to publish an e-book.</p>
                 <hr>
                 <label for="bookname"><b>Book Name</b></label>
@@ -50,10 +55,6 @@ $conn = getDatabaseConnection();
 
 
 <?php
-// get data from submit button
-
-$author_id = 1; // this will come from session array, once it is connected to rest of the pages
-
 if(isset($_POST['publish'])) {
 //    echo "publish button was pressed";
 

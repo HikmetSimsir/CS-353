@@ -1,7 +1,13 @@
 <?php
 session_start();
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
 include "helper.php";
-$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+
+navBar($isAdmin, $isAuthor);
+//$user_id = 1; // this will come from session array, once it is connected to rest of the pages
+$user_id = $_SESSION['user_id'];
 $conn = getDatabaseConnection();
 $filtered = false;
 
@@ -242,11 +248,11 @@ if ($result->num_rows > 0) {
         $result2 = $conn->query($sql2);
 
         if ($result2->num_rows == 0) {
-            $book_info = getBookInfo( $book_id, $conn );
+            $book_info = getEBookInfo( $book_id, $conn );
             echo "book info";
             print_r($book_info);
 
-            echo "<option value='$book_id'>" . "TITLE: " . $book_info['book_title'] . ", AUTHOR NAME:" . $book_info['author_name'] . "</option>";
+            echo "<option value='$book_id'>" . $book_info['book_title'] . ", " . $book_info['author_name']  . ", " .$book_info["price"] . " TL" ."</option>";
         }
     }
 
@@ -277,7 +283,7 @@ if ($result->num_rows > 0) {
         $card_type = $row2['card_type'];
         $name_on_card = $row2['name_on_card'];
 
-        echo "<option value='$card_id'>" . " CARD_NUMBER: " . $card_number . "--" . $card_type . "--" . $name_on_card . "</option>";
+        echo "<option value='$card_id'>" . $card_number . ", " . $card_type . ", " . $name_on_card . "</option>";
     }
     echo "</select>";
     echo "<input type='submit' value='Buy' name='buy'>";

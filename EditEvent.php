@@ -7,7 +7,6 @@ if (isset($_POST['edit_event_id'])) {
     $_SESSION['edit_event_id'] = $_POST['edit_event_id'];
 }
 $edit_event_id = $_SESSION['edit_event_id'];
-
 ?>
 
 

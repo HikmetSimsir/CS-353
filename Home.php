@@ -18,11 +18,18 @@ navBar($isAdmin, $isAuthor);
 include_once "helper.php";
 $conn = getDatabaseConnection();
 reqLogIn();
+
+// find user display name
+$sql = "SELECT display_name FROM user WHERE user_id = '$user_id'";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$display_name = $row['display_name'];
+
 ?>
 
-<p>
-    Welcome <?php echo $_SESSION["uname"] ?>
-</p>
+<h2>
+    Welcome <?php echo $display_name ?>
+</h2>
 
 <?php
 if ($_SESSION["isAdmin"]) {
@@ -48,4 +55,40 @@ if ($_SESSION["isAuthor"]) {
   echo "</p>";
 }
 ?>
+
+
+<?php
+
+// display books purchased by the user
+$sql = "SELECT * FROM e_book
+    natural join book 
+    natural join book_genre natural join genre natural join publisher
+    natural join purchase
+    WHERE user_id = $user_id";
+
+$result = $conn->query($sql);
+
+// create table to display all the books
+echo "<h2>Books Purchased by you</h2>";
+echo "<table border='1' align='center'>
+<tr>
+<th>Book Name</th>
+<th>Publisher Name</th>
+<th>Genre</th>
+<th>Price</th>
+<th>Download</th>
+</tr>";
+define ('SITE_ROOT', realpath(dirname(__FILE__)));
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>";
+    echo "<td>" . $row['title'] . "</td>";
+    echo "<td>" . $row['publisher_name'] . "</td>";
+    echo "<td>" . $row['genre_name'] . "</td>";
+    echo "<td>" . $row['price'] . "</td>";
+    echo "<td><a href='download.php?file=".SITE_ROOT. "\\" .$row['content']."'>Download</a></td>";
+    echo "</tr>";
+}
+echo "</table>";
+?>
+
 </html>

@@ -1,9 +1,10 @@
 <?php
-
 // navigation bar for each user type (admin, user, sysauthor)
 function navBar($isAdmin, $isSysAuthor) {
+    $user_id = $_SESSION['user_id'];
+
     echo "<h1> Social Networking App </h1>";
-echo "<div class='topnav'>";
+    echo "<div class='topnav'>";
 
 
     echo "<a class='active'   href='Home.php'>  Home    </a>";
@@ -15,14 +16,16 @@ echo "<div class='topnav'>";
     echo "<a href=./forumList.php> Forums  </a>";
     echo "<a href='DisplayEvents.php'> See Events  </a>";
     echo "<a href='CreateEvent.php'> Create Event  </a>";
-
+    echo "<a href='CreditCard.php'> Credit Card  </a>";
+    echo "<a href='PurchaseBook.php'> Purchase E-Book  </a>";
 
     if ($isAdmin) {
-        echo "<a href='Admin.php'>Admin  </a>";
+        echo "<a href='ManageEBooks.php'>Manage EBooks  </a>";
         echo '<a href = "./forumCreate.php">Create Forum  </a>';
     }
     if ($isSysAuthor) {
-        echo "<a href='Author.php'>Author  </a>";
+        echo "<a href='Author_Publish_EBook.php'>Publish E-Book  </a>";
+        echo "<a href='AuthorsPage.php?author_id=$user_id'>Your EBooks </a>";
     }
     echo "<a href='Logout.php'>Logout</a>";
     echo "</div>";
