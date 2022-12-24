@@ -12,6 +12,13 @@ session_start();
 $conn = getDatabaseConnection();
 reqLogIn();
 
+
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+
+
 //create nested array for the topic
 try {
 $sql = "SELECT * FROM book_forum";

@@ -8,6 +8,8 @@
 <body>
 
 <?php
+//start session
+session_start();
 include "NavBar.php";
 $isAuthor = $_SESSION['isAuthor'];
 $isAdmin = $_SESSION['isAdmin'];
@@ -42,6 +44,7 @@ navBar($isAdmin, $isAuthor);
     <td> Review</td>
     <td>Rating</td>
     <td>User</td>
+    <td>Date</td>
     <td>Your Vote Status</td>
 
 
@@ -51,7 +54,6 @@ navBar($isAdmin, $isAuthor);
 
         include_once "helper.php";
         $conn = getDatabaseConnection();
-        session_start();
 
         $currentBook = $_GET['bookID'];
         $currentUserName = $_SESSION['uname'];
@@ -106,7 +108,7 @@ navBar($isAdmin, $isAuthor);
 
   }
 
-  $listPreviousReviewsQuery = mysqli_query($conn, "Select text, rating, user.display_name , review_id from book_review, user where user.user_id = book_review.user_id and book_id = '$currentBook'");
+  $listPreviousReviewsQuery = mysqli_query($conn, "Select text, rating, user.display_name , review_id, book_review.date from book_review, user where user.user_id = book_review.user_id and book_id = '$currentBook'");
 
 
   while ($row = mysqli_fetch_array($listPreviousReviewsQuery, MYSQLI_ASSOC)) {
@@ -114,6 +116,8 @@ navBar($isAdmin, $isAuthor);
     $currentReview = $row['text'];
     $currentRate = $row['rating'];
     $currentName = $row['display_name'];
+    // get current date
+    $currentDate = $row['date'];
 
     $curReviewID = $row['review_id'];
     $currentVoteStatus = "Not voted";
@@ -131,6 +135,8 @@ navBar($isAdmin, $isAuthor);
     <td>{$currentReview} </td>
     <td>{$currentRate} </td>
     <td>{$currentName} </td>
+     <td>{$currentDate} </td>
+
     <td> {$currentVoteStatus} </td>
     <td> <form method=\"post\" action=\"setVoteStatus.php?status=up&bookID=$currentBook&userID=$currentUserID&reviewID=$curReviewID\"> 
                         <input type='submit' class='button_submit' value='upvote'></form></td>

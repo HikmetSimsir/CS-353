@@ -9,6 +9,18 @@
 <body>
 
 
+<?php
+
+session_start();
+include "NavBar.php";
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+navBar($isAdmin, $isAuthor);
+?>
+
+
+
+
 <h2>Welcome to The Book Review Page</h2>
 
 <table border="1" align="center">
@@ -22,6 +34,8 @@
     </tr>
 
   <?php
+
+
 
   $filter_title = $_GET["title"];
   $filter_author = $_GET["author"];
@@ -64,9 +78,9 @@
   echo $form;
   include_once "helper.php";
   $conn = getDatabaseConnection();
-  session_start();
+
   $sql = "
-select book.book_id, title, publisher.publisher_name, author.name, genre.genre_info
+select book.book_id, title, publisher.publisher_name, author.name, genre.genre_name
 from book,
      book_author,
      publisher,
@@ -80,13 +94,10 @@ where book.book_id = book_author.book_id
   and book.publisher_id = publisher.publisher_id
   and author.name like '%$filter_author%'
   and publisher.publisher_name like '%$filter_publisher%'
-  and genre.genre_info like '%$filter_genre%'
+  and genre.genre_name like '%$filter_genre%'
   and book.title like '%$filter_title%'
 ";
   $listBooktoReviewQuery = mysqli_query($conn, $sql);
-
-
-
 
   while ($row = mysqli_fetch_array($listBooktoReviewQuery, MYSQLI_ASSOC)) {
 
@@ -109,7 +120,7 @@ where book.book_id = book_author.book_id
     <td>{$row['title']}</td>
     <td>{$row['publisher_name']}</td>
     <td>{$row['name']}</td>
-    <td>{$row['genre_info']}</td>
+    <td>{$row['genre_name']}</td>
     <td>{$currentUserBookReadStatus}</td>
 
     <td><a href='makeReview.php?bookID=$bookid&userID=$currentUserID'>'Make Review to this Book'</a></td>
