@@ -243,7 +243,7 @@ $sql = "CREATE TABLE book_review (
                 review_id INT NOT NULL AUTO_INCREMENT,
                 user_id INT NOT NULL,
                 text varchar(255),
-                date DATE,
+                date DATE DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 rating INT,
                 KEY (review_id),
                 PRIMARY KEY (book_id, review_id),

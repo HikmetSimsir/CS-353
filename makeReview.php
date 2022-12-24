@@ -104,7 +104,9 @@ navBar($isAdmin, $isAuthor);
     $numberOfReviewForThisBook = mysqli_num_rows($listPreviousReviewsQuery);
 
     // add this book review to the table
-    $addBookReviewQuery = mysqli_query($conn, "insert into book_review values('$currentBook',null,'$currentUserID','$bookReview',null,'$bookRate');");
+      $Curdate = date('Y-m-d H:i:s');
+
+      $addBookReviewQuery = mysqli_query($conn, "insert into book_review values('$currentBook',null,'$currentUserID','$bookReview',NOW(),'$bookRate');");
 
   }
 
