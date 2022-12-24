@@ -45,20 +45,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userid = $row[0]["user_id"];
 
     if (isset($_POST["Admin"]) && !empty($_POST["Admin"])) {
-        $pno = $_POST["phonenumber"];
+      $pno = $_POST["phonenumber"];
 
-        $sql = "INSERT INTO sys_admin(user_id, phone_number) VALUES ('$userid','$pno')";
-        $result = $conn->query($sql);
+      $sql = "INSERT INTO sys_admin(user_id, phone_number) VALUES ('$userid','$pno')";
+      $result = $conn->query($sql);
     }
 
     if (isset($_POST["Author"]) && !empty($_POST["Author"])) {
-          $wsite = $_POST["adminWSite"];
-          $ainfo = $_POST["ainfo"];
-        $fname = $_POST["fname"];
-        $lname = $_POST["lname"];
+      $wsite = $_POST["adminWSite"];
+      $ainfo = $_POST["ainfo"];
+      $fname = $_POST["fname"];
+      $lname = $_POST["lname"];
 
-        $sql = "INSERT INTO sys_author(user_id, website_url, author_info, first_name, last_name) VALUES ('$userid','$wsite','$ainfo', '$fname', '$lname')";
-        $result = $conn->query($sql);
+      $sql = "INSERT INTO sys_author(user_id, website_url, author_info, first_name, last_name) VALUES ('$userid','$wsite','$ainfo', '$fname', '$lname')";
+      $result = $conn->query($sql);
     }
 
   } else {
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="dname">Display name</label><br> <input type="text" name="dname" id="dname" required>
     </p>
 
-<!--    first name, last name-->
+    <!--    first name, last name-->
     <p>
         <label for="fname">First name</label><br> <input type="text" name="fname" id="fname" required>
     </p>
@@ -90,20 +90,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </p>
 
 
-
     <p>
         <label for="phonenumber">Phone number for Admin</label><br> <input type="tel" name="phonenumber"
                                                                            id="phonenumber" maxlength="200"
-                                                                           value="444 4 44" required>
+                                                                           value="444 4 44">
     </p>
     <p>
         <label for="adminWSite">Website for Author</label><br> <input type="url" name="adminWSite" id="adminWSite"
-                                                                      maxlength="200" value="https://demo-site.com"
-                                                                      required>
+                                                                      maxlength="200" value="https://demo-site.com">
     </p>
     <p>
         <label for="ainfo">Info for Author</label><br> <input type="text" name="ainfo" id="ainfo" maxlength="200"
-                                                              value="A mystery." required>
+                                                              value="A mystery.">
     </p>
     <fieldset>
         <legend>User Type</legend>
