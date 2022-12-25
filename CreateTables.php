@@ -379,6 +379,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = "CREATE TABLE user_follow_user (
                 user_id INT NOT NULL,
                 follower_id INT NOT NULL,
+                date DATE,
                 PRIMARY KEY (user_id, follower_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                             on delete cascade

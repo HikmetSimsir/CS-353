@@ -13,7 +13,7 @@
 
 
     if ($resq == null) {
-        $listPreviousReviewsQuery = mysqli_query($conn, "INSERT INTO user_follow_user values('$followedUserID','$currentUserID');");
+        $listPreviousReviewsQuery = mysqli_query($conn, "INSERT INTO user_follow_user(user_id, follower_id) values('$followedUserID','$currentUserID');");
         header("Location: ListUsersPage.php");
 
     }
