@@ -577,4 +577,64 @@ if (mysqli_query($conn, $sql)) {
 }
 
 
+//create same triggers for decrementing the number of users, books, events, book reviews, forum posts, and forums
+
+//create trigger such that when a user is deleted from the system, the number of users in the statistics table is decremented by 1
+$sql = "create trigger decrement_users after delete on user for each row
+        update statistics set total_users = total_users - 1;";
+if (mysqli_query($conn, $sql)) {
+  echo "Trigger created successfully \n <br>";
+} else {
+  echo "Error creating trigger: " . mysqli_error($conn);
+}
+
+//create trigger such that when a book is deleted from the system, the number of books in the statistics table is decremented by 1
+
+$sql = "create trigger decrement_books after delete on book for each row
+        update statistics set total_books = total_books - 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+
+}
+
+//create trigger such that when an event is deleted from the system, the number of events in the statistics table is decremented by 1
+$sql = "create trigger decrement_events after delete on event for each row
+        update statistics set total_events = total_events - 1;";
+if (mysqli_query($conn, $sql)) {
+
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+}
+
+//create trigger such that when a book review is deleted from the system, the number of book reviews in the statistics table is decremented by 1
+$sql = "create trigger decrement_book_reviews after delete on book_review for each row
+        update statistics set total_book_reviews = total_book_reviews - 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+
+}
+//create trigger such that when a forum post is deleted from the system, the number of forum posts in the statistics table is decremented by 1
+
+$sql = "create trigger decrement_forum_posts after delete on post for each row
+        update statistics set total_forum_posts = total_forum_posts - 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+}
+
+// create a trigger such that when a forum is deleted from the system, the number of forums in the statistics table is decremented by 1
+$sql = "create trigger decrement_forums after delete on book_forum for each row
+        update statistics set total_forums = total_forums - 1;";
+if (mysqli_query($conn, $sql)) {
+    echo "Trigger created successfully \n <br>";
+    } else {
+    echo "Error creating trigger: " . mysqli_error($conn);
+}
+
 ?>
