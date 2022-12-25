@@ -19,6 +19,7 @@ function navBar($isAdmin, $isSysAuthor) {
     echo "<a href='CreditCard.php'> Credit Card  </a>";
     echo "<a href='PurchaseBook.php'> Purchase E-Book  </a>";
     echo "<a href='SReportList.php'> System Report List  </a>";
+    echo "<a href='BookLists.php'> Book Lists  </a>";
 
 
 
