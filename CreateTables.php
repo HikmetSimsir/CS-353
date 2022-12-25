@@ -126,7 +126,7 @@ if (mysqli_query($conn, $sql)) {
 $sql = "CREATE TABLE publisher (
                 publisher_id INT NOT NULL AUTO_INCREMENT,
                 publisher_name varchar(255),
-                email varchar(255),
+                publisher_email varchar(255),
                 publisher_website_url varchar(255),
                 PRIMARY KEY (publisher_id)
                 ) ENGINE=InnoDB;";
@@ -489,6 +489,13 @@ if (mysqli_query($conn, $sql)) {
 }
 
 // create table to store total number of users, books, and events,book reviews, forum posts,
+$sql = "drop table if exists statistics";
+if (mysqli_query($conn, $sql)) {
+  echo "Table statistics dropped successfully \n <br>";
+} else {
+  echo "Error dropping table: " . mysqli_error($conn);
+}
+
 $sql = "create table statistics(
         total_users int,
         total_books int,
@@ -506,6 +513,7 @@ if (mysqli_query($conn, $sql)) {
 }
 
 //insert an initial value for the statistics table with value 0 for all columns
+
 $sql = "insert into statistics values(0,0,0,0,0,0);";
 if (mysqli_query($conn, $sql)) {
     echo "Table user_participate_event created successfully \n <br>";
