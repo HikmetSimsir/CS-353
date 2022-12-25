@@ -45,20 +45,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userid = $row[0]["user_id"];
 
     if (isset($_POST["Admin"]) && !empty($_POST["Admin"])) {
-        $pno = $_POST["phonenumber"];
+      $pno = $_POST["phonenumber"];
 
-        $sql = "INSERT INTO sys_admin(user_id, phone_number) VALUES ('$userid','$pno')";
-        $result = $conn->query($sql);
+      $sql = "INSERT INTO sys_admin(user_id, phone_number) VALUES ('$userid','$pno')";
+      $result = $conn->query($sql);
     }
 
     if (isset($_POST["Author"]) && !empty($_POST["Author"])) {
-          $wsite = $_POST["adminWSite"];
-          $ainfo = $_POST["ainfo"];
-        $fname = $_POST["fname"];
-        $lname = $_POST["lname"];
+      $wsite = $_POST["adminWSite"];
+      $ainfo = $_POST["ainfo"];
+      $fname = $_POST["fname"];
+      $lname = $_POST["lname"];
 
-        $sql = "INSERT INTO sys_author(user_id, website_url, author_info, first_name, last_name) VALUES ('$userid','$wsite','$ainfo', '$fname', '$lname')";
-        $result = $conn->query($sql);
+      $sql = "INSERT INTO sys_author(user_id, website_url, author_info, first_name, last_name) VALUES ('$userid','$wsite','$ainfo', '$fname', '$lname')";
+      $result = $conn->query($sql);
     }
 
   } else {
@@ -81,14 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="dname">Display name</label><br> <input type="text" name="dname" id="dname" required>
     </p>
 
-<!--    first name, last name-->
+    <!--    first name, last name-->
     <p>
         <label for="fname">First name</label><br> <input type="text" name="fname" id="fname" required>
     </p>
     <p>
         <label for="lname">Last name</label><br> <input type="text" name="lname" id="lname" required>
     </p>
-
 
 
     <p>
