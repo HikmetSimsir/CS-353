@@ -245,8 +245,7 @@ $sql = "CREATE TABLE book_review (
                 text varchar(255),
                 date DATE,
                 rating INT,
-                KEY (review_id),
-                PRIMARY KEY (book_id, review_id),
+                PRIMARY KEY  (review_id),
                 FOREIGN KEY (book_id) REFERENCES book(book_id)
                             on delete cascade
                             on update cascade,
@@ -267,11 +266,11 @@ $sql = "CREATE TABLE user_vote_review (
                 user_id INT NOT NULL,
                 book_id INT NOT NULL,
                 vote ENUM('up', 'down'),
-                PRIMARY KEY (user_id, review_id, book_id),
+                PRIMARY KEY (user_id, review_id),
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                             on delete cascade
                             on update cascade,
-                FOREIGN KEY (book_id, review_id) REFERENCES book_review(book_id, review_id)
+                FOREIGN KEY (review_id) REFERENCES book_review(review_id)
                             on delete cascade
                             on update cascade
                 ) ENGINE=InnoDB;";
@@ -304,6 +303,9 @@ $sql = "CREATE TABLE author_publish_ebook (
                 date DATE,
                 PRIMARY KEY (book_id, author_id),
                 FOREIGN KEY (book_id) REFERENCES e_book(book_id)
+                            on delete cascade
+                            on update cascade,
+                FOREIGN KEY (author_id) REFERENCES sys_author(user_id)
                             on delete cascade
                             on update cascade
                 ) ENGINE=InnoDB;";
@@ -361,7 +363,7 @@ $sql = "CREATE TABLE purchase (
                 FOREIGN KEY (user_id) REFERENCES user(user_id)
                             on delete cascade
                             on update cascade,
-                FOREIGN KEY (book_id) REFERENCES book(book_id)
+                FOREIGN KEY (book_id) REFERENCES e_book(book_id)
                             on delete cascade
                             on update cascade,
                 FOREIGN KEY (card_id) REFERENCES credit_card(card_id)
