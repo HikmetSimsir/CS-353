@@ -117,7 +117,7 @@ if (isset($_POST['filter'])) {
             $author = $_POST['author'];
 
             // search for author using like
-            $sql = "SELECT * FROM author natural join book_author WHERE name LIKE '%$author%'";
+            $sql = "SELECT * FROM sys_author natural join author_publish_ebook WHERE first_name LIKE '%$author%' OR last_name LIKE '%$author%'";
             $result = $conn->query($sql);
 
             while ($row = $result->fetch_assoc()) {
