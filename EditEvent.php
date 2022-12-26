@@ -2,7 +2,10 @@
 session_start();
 include_once "helper.php";
 //$user_id = 1; // this will come from session array, once it is connected to rest of the pages
-
+$isAuthor = $_SESSION['isAuthor'];
+$isAdmin = $_SESSION['isAdmin'];
+include "NavBar.php";
+navBar($isAdmin, $isAuthor);
 if (isset($_POST['edit_event_id'])) {
     $_SESSION['edit_event_id'] = $_POST['edit_event_id'];
 }
@@ -20,10 +23,7 @@ $edit_event_id = $_SESSION['edit_event_id'];
 
 
 <?php
-$isAuthor = $_SESSION['isAuthor'];
-$isAdmin = $_SESSION['isAdmin'];
-include "NavBar.php";
-navBar($isAdmin, $isAuthor);
+
 //echo "Edit Event ID: " . $edit_event_id . "<br>";
 // display edit page for event
 $conn = getDatabaseConnection();
@@ -140,12 +140,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("UPDATE event SET event_name = ?, start_date = ?, start_time = ?, end_time = ?, description = ?, location = ? WHERE event_id = ?");
             $stmt->bind_param("ssssssi", $event_name, $start_date, $start_time, $end_time, $description, $location, $edit_event_id);
             $stmt->execute();
-            echo "Event Updated Successfully";
+
+            // make alert using javascript
+            echo "<script type='text/javascript'>alert('Event Edited Successfully!');</script>";
+
+
             $stmt->close();
             $conn->close();
         }
     } else if (isset($_POST['delete'])) {
-        echo "Delete button was pressed";
+//        echo "Delete button was pressed";
         // connect to database
         $conn = getDatabaseConnection();
         if ($conn->connect_error) {
@@ -154,7 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("DELETE FROM event WHERE event_id = ?");
             $stmt->bind_param("i", $edit_event_id);
             $stmt->execute();
-            echo "Event Deleted Successfully";
+
+            // make alert using javascript
+            echo "<script type='text/javascript'>alert('Event Deleted Successfully!');</script>";
+
             $stmt->close();
             $conn->close();
         }

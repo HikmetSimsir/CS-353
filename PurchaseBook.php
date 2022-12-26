@@ -57,7 +57,7 @@ if (isset($_POST['filter'])) {
     // check if fields are empty
     if (empty($_POST['genre']) && empty($_POST['author']) && empty($_POST['publisher'])
         && empty($_POST['min_price']) && empty($_POST['max_price']) && empty($_POST['title'])) {
-        echo "Please fill in at least one field";
+//        echo "Please fill in at least one field";
         $books = array();
     } else {
         // get data from form
@@ -89,14 +89,14 @@ if (isset($_POST['filter'])) {
                 }
             }
 
-            echo "books genre";
-            print_r($books_genre);
-            echo "<br>";
+//            echo "books genre";
+//            print_r($books_genre);
+//            echo "<br>";
 
         }
         if (!empty($_POST['title'])) {
             $title = $_POST['title'];
-            echo "title is \"$title\"";
+//            echo "title is \"$title\"";
 
 
             // search for title using like
@@ -107,10 +107,10 @@ if (isset($_POST['filter'])) {
                 $book_id = $row['book_id'];
                 array_push($books_title, $book_id);
             }
-
-            echo "books title";
-            print_r($books_title);
-            echo "<br>";
+//
+//            echo "books title";
+//            print_r($books_title);
+//            echo "<br>";
         }
 
         if (!empty($_POST['author'])) {
@@ -125,9 +125,9 @@ if (isset($_POST['filter'])) {
                 array_push($books_author, $book_id);
             }
 
-            echo "books author";
-            print_r($books_author);
-            echo "<br>";
+//            echo "books author";
+//            print_r($books_author);
+//            echo "<br>";
         }
 
 
@@ -143,15 +143,15 @@ if (isset($_POST['filter'])) {
                 array_push($books_publisher, $book_id);
             }
 
-            echo "books publisher";
-            print_r($books_publisher);
-            echo "<br>";
+//            echo "books publisher";
+//            print_r($books_publisher);
+//            echo "<br>";
         }
 
         if (!empty($_POST['min_price']) && !empty($_POST['max_price'])) {
             $min_price = $_POST['min_price'];
             $max_price = $_POST['max_price'];
-            echo "min price is $min_price and max price is $max_price";
+//            echo "min price is $min_price and max price is $max_price";
             // search for price using between
             $sql = "SELECT * FROM e_book WHERE price BETWEEN $min_price AND $max_price";
             $result = $conn->query($sql);
@@ -161,9 +161,9 @@ if (isset($_POST['filter'])) {
                 array_push($books_price, $book_id);
             }
 
-            echo "books price";
-            print_r($books_price);
-            echo "<br>";
+//            echo "books price";
+//            print_r($books_price);
+//            echo "<br>";
         }
 
         // get the intersection of all the arrays if they are not empty
@@ -205,9 +205,9 @@ if (isset($_POST['filter'])) {
             }
         }
 
-        echo "books";
-        print_r($books);
-        echo "<br>";
+//        echo "books";
+//        print_r($books);
+//        echo "<br>";
         $filtered = true;
 
     }
@@ -242,15 +242,15 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $book_id = $row['book_id'];
         // find books properties from the book id
-        echo "book id is $book_id";
+//        echo "book id is $book_id";
         // check if the book is already purchased by the user
         $sql2 = "SELECT * FROM purchase WHERE user_id = $user_id AND book_id = $book_id";
         $result2 = $conn->query($sql2);
 
         if ($result2->num_rows == 0) {
             $book_info = getEBookInfo( $book_id, $conn );
-            echo "book info";
-            print_r($book_info);
+//            echo "book info";
+//            print_r($book_info);
 
             echo "<option value='$book_id'>" . $book_info['book_title'] . ", " . $book_info['author_name']  . ", " .$book_info["price"] . " TL" ."</option>";
         }
@@ -258,7 +258,7 @@ if ($result->num_rows > 0) {
 
     echo "</select>";
 } else {
-    echo "<h2>No ebooks found!</h2>";
+    echo "<h2>No ebooks found :(</h2>";
 }
 ?>
 
@@ -290,7 +290,7 @@ if ($result->num_rows > 0) {
     echo "</form>";
 
 } else {
-    echo "You have no credit cards. Please add a credit card. <br>";
+    echo "You have no credit cards :( Please add a credit card. <br>";
 }
 
 ?>
@@ -304,7 +304,7 @@ if ($result->num_rows > 0) {
 
 // get data from submit button
 if(isset($_POST['buy'])) {
-    echo "buy button was pressed";
+//    echo "buy button was pressed";
     if (isset($_POST['e_books']) && isset($_POST['credit_cards'])) {
         // get data from form
         $ebook_id = $_POST['e_books'];
@@ -314,7 +314,7 @@ if(isset($_POST['buy'])) {
         unset($_POST['e_books']);
         unset($_POST['credit_cards']);
 
-        echo "ebook id is $ebook_id" . "credit card id is $card_id";
+//        echo "ebook id is $ebook_id" . "credit card id is $card_id";
 
         // check if the user has enough credit to buy the book
         $sql = "SELECT * FROM e_book WHERE book_id = $ebook_id";
@@ -335,15 +335,16 @@ if(isset($_POST['buy'])) {
             // insert into purchase table
             $sql = "INSERT INTO purchase (user_id, card_id, book_id, date) VALUES ($user_id, $card_id, $ebook_id, NOW())";
             $result2 = $conn->query($sql);
-            if ($result) {
-                echo "Purchase was successful";
-            } else {
-                echo "Purchase was not successful";
-            }
+
+//            if (!$result) {
+//                echo "<script type='text/javascript'>alert('There was an error while purchasing the book.');</script>";
+//                // go back to the page
+//                header("Refresh:0");
+//            }
 
             // update credit card balance
             $new_credit = $credit - $price;
-            echo "new credit is $new_credit, old credit is $credit, price is $price";
+//            echo "new credit is $new_credit, old credit is $credit, price is $price";
             $sql = "UPDATE credit_card SET balance = $new_credit WHERE card_id = $card_id";
             $result = $conn->query($sql);
 
@@ -351,6 +352,9 @@ if(isset($_POST['buy'])) {
             if ($result && $result2) {
                 // make alert that the purchase was successful
                 echo "<script type='text/javascript'>alert('Purchase was successful.');</script>";
+            } else {
+                // make alert that the purchase was not successful
+                echo "<script type='text/javascript'>alert('There was an error while purchasing the book.');</script>";
             }
 
         }

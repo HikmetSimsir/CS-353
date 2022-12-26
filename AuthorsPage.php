@@ -27,7 +27,7 @@ $conn = getDatabaseConnection();
 // display all ebboks books of the author
 $author_id = $_GET['author_id'];
 
-echo "author id is: " . $author_id;
+//echo "author id is: " . $author_id;
 
 $sql = "SELECT * FROM sys_author natural join user";
 $result = $conn->query($sql);

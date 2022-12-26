@@ -28,11 +28,10 @@ function navBar($isAdmin, $isSysAuthor) {
         echo '<a href = "./forumCreate.php">Create Forum  </a>';
 
         echo "<a href='SReportCreate.php'> System Report Create  </a>";
-
-    }
+        }
     if ($isSysAuthor) {
         echo "<a href='Author_Publish_EBook.php'>Publish E-Book  </a>";
-        echo "<a href='AuthorsPage.php?author_id=$user_id'>Your EBooks </a>";
+        echo "<a href='AuthorsPage.php?author_id=$user_id'>Your Published EBooks </a>";
     }
     echo "<a href='Logout.php'>Logout</a>";
     echo "</div>";

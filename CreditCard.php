@@ -99,16 +99,16 @@ if ($result->num_rows > 0) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['card_id'])) {
         $card_id = $_POST['card_id'];
-        echo "card id: " . $card_id;
+//        echo "card id: " . $card_id;
 
         if ($conn->connect_error) {
             die('Connection Failed : ' . $conn->connect_error);
         } else {
             $sql = "DELETE FROM credit_card WHERE card_id = $card_id";
             if ($conn->query($sql) === TRUE) {
-                echo "Record deleted successfully";
+                echo "<script type='text/javascript'>alert('Credit card removed successfully');</script>";
             } else {
-                echo "Error deleting record: " . $conn->error;
+                echo "<script type='text/javascript'>alert('Error removing credit card');</script>";
             }
         }
 
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (isset($_POST['submit'])) {
-    echo "submit button was pressed";
+//    echo "submit button was pressed";
 
     // get data from form
     $card_number = $_POST['card_number'];
@@ -136,26 +136,26 @@ if (isset($_POST['submit'])) {
     if($conn->connect_error){
         die('Connection Failed : '.$conn->connect_error);
     }else{
-
         // insert into credit card table
         // check if card is already in the database
         $sql = "SELECT * FROM credit_card WHERE card_number = $card_number";
         $result3 = $conn->query($sql);
         if ($result3->num_rows > 0) {
-            echo "card already exists";
-
+//            echo "<script type='text/javascript'>alert('Credit card already exists');</script>";
+            ;
         } else {
 
             $sql = "INSERT INTO credit_card (card_number, card_type, name_on_card, due_date_month, due_date_year, cvv, balance) 
             VALUES ('$card_number', '$card_type', '$name_on_card', '$due_date_month', '$due_date_year', '$cvv', '$default_balance')";
             $result = $conn->query($sql);
 
-            if ($result === TRUE) {
-                echo "New card created successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
-            }
+//            if ($result === TRUE) {
+//                echo "<script type='text/javascript'>alert('Credit card added successfully');</script>";
+//            } else {
+//                echo "<script type='text/javascript'>alert('Error adding credit card');</script>";
+//            }
         }
+
         // get card id
         $sql = "SELECT card_id FROM credit_card WHERE card_number = $card_number";
         $result = $conn->query($sql);
@@ -169,17 +169,16 @@ if (isset($_POST['submit'])) {
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             // user already has this card
-            echo "user already has this card";
+//            echo "user already has this card";
+            echo "<script type='text/javascript'>alert('You already have this credit card');</script>";
         } else {
-
-
             $sql2 = "INSERT INTO user_has_credit_card (user_id, card_id) VALUES ($user_id, $card_id)";
             $result2 = $conn->query($sql2);
 
             if ($result2 === TRUE) {
-                echo "Card added to the user successfully";
+                echo "<script type='text/javascript'>alert('Credit card added successfully');</script>";
             } else {
-                echo "Error: " . $sql2 . "<br>" . $conn->error;
+                echo "<script type='text/javascript'>alert('Error adding credit card');</script>";
             }
         }
     }

@@ -64,13 +64,13 @@ if(isset($_POST['publish'])) {
     $genre = $_POST['genre'];
     $price = $_POST['price'];
 
-    print_r($_FILES['fileToUpload']);
+//    print_r($_FILES['fileToUpload']);
     // read pdf content
     $targetfolder = "uploads/";
     $targetfolder = $targetfolder . basename( $_FILES['fileToUpload']['name']) ;
 
-    echo $targetfolder . "<br>";
-    echo "tmp file name is: " . $_FILES['fileToUpload']['tmp_name'] . "<br>";
+//    echo $targetfolder . "<br>";
+//    echo "tmp file name is: " . $_FILES['fileToUpload']['tmp_name'] . "<br>";
 
 
     define ('SITE_ROOT', realpath(dirname(__FILE__)));
@@ -80,11 +80,17 @@ if(isset($_POST['publish'])) {
     if ($fileType != "pdf") {
         // script to display error message
         echo "<script>alert('Sorry, only PDF files are allowed.');</script>";
+        // Redirect to this page
+        exit();
     } else {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], SITE_ROOT.'\\uploads\\'. basename( $_FILES['fileToUpload']['name']))) {
-            echo "The file ". basename( $_FILES['fileToUpload']['name']). " is uploaded";
+//            echo "The file ". basename( $_FILES['fileToUpload']['name']). " is uploaded";
+
+            echo "<script>alert('The file ". basename( $_FILES['fileToUpload']['name']). " is uploaded');</script>";
+
         } else {
-            echo "Problem uploading file";
+//            echo "Problem uploading file";
+            echo "<script>alert('Problem uploading file');</script>";
         }
     }
 
